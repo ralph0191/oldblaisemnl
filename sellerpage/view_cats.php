@@ -1,5 +1,5 @@
 
-<table width="1000px" align="center"> 
+<table width="100%" align="center"> 
 
 	
 	<tr align="center">

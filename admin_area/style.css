@@ -58,6 +58,7 @@ color: #ffffff;
 	margin:auto;
 	background-color: rgba(0, 0, 0, 0.7);
 	overflow:auto;
+	height: 100vh;
 }
 
 .header_wrapper{
@@ -83,20 +84,19 @@ color: #ffffff;
 	transition: all 0.3s ease-in-out;
 }
 
-#left{
-min-height:600px;
-max-height:600px;
-background-color: rgba(128, 128, 128,.2);
-overflow-y:auto;
-overflow-x:hidden;
-display:block;
+#left {
+    background-color: rgba(128, 128, 128,.2);
+    width: 70%;
+    height: 100%;
+    display: table-column-group;
+    float: left;
 }
 #right {
-width:200px;
-min-height:600px;
-float:right;
-border-left:5px groove white;
-background-color: rgba(0, 0, 0, 0.5);
+    width: 30%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    float: right;
 }
 
 #right a {

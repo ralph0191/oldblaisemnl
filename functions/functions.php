@@ -104,16 +104,14 @@ function total_price(){
 	global $con;
 	
 	$ip = getIp();
-	
-	$sel_price = "select * from cart where customer_id='$ip'";
-	
+	$sel_price = "SELECT p_id, qty FROM cart WHERE customer_id='$ip'";
 	$run_price = mysqli_query($con, $sel_price);
 	
 	while($p_price=mysqli_fetch_array($run_price)){
 		
 		$pro_id = $p_price['p_id'];
-		
-		$pro_price = "select * from products where prod_id = '$pro_id'";
+		$pro_qty = $p_price['qty'];
+		$pro_price = "SELECT * FROM products WHERE prod_id = '$pro_id'";
 		
 		$run_pro_price = mysqli_query($con,$pro_price);
 		
@@ -121,7 +119,7 @@ function total_price(){
 			
 			$product_price = array($pp_price['prod_price']);
 			
-			$values = array_sum($product_price);
+			$values = $pro_qty * array_sum($product_price);
 			
 			$total += $values;
 			
