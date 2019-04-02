@@ -31,7 +31,7 @@
 	<br>
 	<center>
 	
-	<table width="780" align="center"> 
+	<table width="100%" align="center"> 
 
 	
 	<tr align="center">

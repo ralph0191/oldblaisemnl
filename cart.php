@@ -17,67 +17,10 @@ include ("functions/functions.php");
 		<link rel="stylesheet" href="styles/style.css" media="all" type="text/css">
 
 <body>
-
-
-<!--Header starts here-->
-	<div class="header_wrapper">
-	<div class="header">
-		<div class="logo">
-		<h1><span>Blaise</span>Mnl</h1>
-		</div>
-	<!--Menubar starts here-->
-		<div class="menu_wrapper">
-		<div class="menubar">
-			<ul id="menu">		
-				<li class="current_list_item"><a class="home" href="index.php" >Home</a></li>
-				<li><a href="AboutUs.php" >About Us</a></li>
-				<li><a href="all_products.php">All Products</a></li>
-				<li><a href="register.php">Register</a></li>
-			</ul>
-
-			<div id="form" class="search_form">
-				<form method="get" action="results.php" enctype="multipart/form-data">
-				<input type="text" class="searchfrm" name="user_query" placeholder="Search for a product"/>
-				<input  type="submit" class="searchbtn" name="search" value="Search" />
-				</form>
-			</div>
-		</div>
-		</div>
-	<!--Menubar ends here-->
-	</div>	
-	</div>
-<!--Header ends here-->
-
-<!--Main Container starts here!-->
-	<div class="main_wrapper">
-		<div class="login_details">
-				<?php 
-					if(isset($_SESSION['customer_email'])){
-					echo "<b>Welcome: </b>" . $_SESSION['customer_email'] ;
-					echo "<span class='my_account'><a href='my_account.php'> My Account </a></span>";
-					}
-					else {
-					echo "<b>Welcome Guest: </b>";
-					}
-					?>	<?php 
-
-					if(!isset($_SESSION['customer_email'])){
-			
-					echo "<a href='login.php' style='color:yellow;'>Login</a>";}
-		
-					else{
-						echo "<a href='logout.php' style='color:yellow;'>- Logout</a>";
-					}?>	
-			</div>
-		<div class="shopping_cart">		
-		
-		<div class="shopping_details">
-		<a href="cart.php"><img class="imagedropshadow" id="imgcart" src="images/cartpink.png"></a>
-		<span class="item_details"><b style="color:yellow">Shopping Cart</b> - Total Items: <?php total_items(); ?> Total Price: <?php total_price(); ?>  </span>
-		</div>		
-		</div>
-		
-
+<?php 
+	include("includes/header.php");
+	include("includes/cartpanel.php");
+?>
 <!--Content starts here-->
 	<div class="content_wrapper">
 		<div id="content_area">
@@ -147,6 +90,7 @@ include ("functions/functions.php");
 			$product_price = array($pp_price['prod_price']);
 			$product_title = $pp_price['prod_title'];
 			$product_image = $pp_price['prod_image'];
+			$product_qty = $pp_price['prod_qty'];
 			$single_price = $pp_price['prod_price'];
 			
 			
@@ -176,23 +120,29 @@ include ("functions/functions.php");
 					<?php 
 						
 						if (isset($_POST['update_cart'])){
-                    
-                                foreach ($_POST['item_id'] as $key => $id) {
-                                
-                                    $item_id = $id;
-                                    $quantity = $_POST['qty'][$key];									
-																	
-                                    $update_products = "UPDATE cart SET qty = '$quantity' WHERE p_id = '$item_id';";
-                                    
-									$run_update = mysqli_query($con, $update_products);
-																	
-                                }
 							
-							echo "<script>window.open('cart.php','_self')</script>";
+							foreach ($_POST['item_id'] as $key => $id) {
+								$quantity = $_POST['qty'][$key];	
+                                if ($quantity < $product_qty) {
+									$item_id = $id;
+																	
+									$update_products = "UPDATE cart SET qty = '$quantity' WHERE p_id = '$item_id';";
+									
+									$run_update = mysqli_query($con, $update_products);
+									echo "<script>window.open('cart.php','_self')</script>";
+								}
+								else {
+									echo "<script>window.open('cart.php','_self')</script>";
+									echo "<h1><b>Run out of stocks</b></h1>";
+								}
+																
+							}
+							
+							
 						
-                            }
+						}
 						
-						?>				
+					?>				
 									
 					<td width="150"><?php echo "₱" . $subtotal; ?></td>
 				</tr>
@@ -207,7 +157,7 @@ include ("functions/functions.php");
 		<div class="cart-btn">	<input type="submit" name="continue" value="Continue Shopping"/></div> </div>
 					
 		<div class="check_out">
-		<span><b>Total Price:</b> <?php echo "₱" . $total?> </span>
+		<span class='color:black'><b>Total Price:</b> <?php echo "₱" . $total?> </span>
 		<button><a href="checkout.php" style="text-decoration:none; color:black;">Checkout</a></button></div>
 		
 		</form>
@@ -244,21 +194,10 @@ include ("functions/functions.php");
 		}
 	
 	}
-	echo @$up_cart = updatecart();
+	echo $up_cart = updatecart();
 	
 	
 		?>
-										
-					
-					
-					
-				
-				
-				
-		
-		
-		
-		
 		</div>
 		
 								

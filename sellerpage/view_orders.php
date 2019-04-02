@@ -7,12 +7,10 @@ if(!isset($_SESSION['user_email'])){
 }
 else {
 ?>
-<table width="780" align="center"> 
+<table width="100%" align="center"> 
 
 	
-	<tr align="center">
-		<td colspan="6"><h2>All Orders</h2></td>
-	</tr>
+	<h1 style="text-align:center;">ALL ORDERS</h1>
 	
 	<tr align="center" bgcolor="#ff8000" style="text-align:center;">
 		<th>Order ID</th>

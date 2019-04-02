@@ -67,29 +67,8 @@ tt=display_c();
 
 	<div class="main_wrapper">
 
-
-		<div id="right">
-
-		<center>
-		<h3>The current time is: </h3><br>
-		<span id='ct'></span>
-		<br><hr></center>
-		<h2 style="text-align:center;">Manage Content</h2>
-
-
-
-
-			<a href="index.php?view_customers">View Customers</a>
-
-			<a href="index.php?view_products">View Staffs</a>
-			<a href="index.php?insert_staff">Add Staffs</a>
-			<a href="index.php?login_log">View Logins</a>
-			<a href="index.php?delete_log">View Delete Logs</a>
-
-			<a href="logout.php">Admin Logout</a>
-
-		</div>
-
+	<div class="content_wrapper">
+		
 		<div id="left">
 		<h2 style="color:red; text-align:center;"><?php echo @$_GET['logged_in']; ?></h2>
 		<?php
@@ -272,9 +251,22 @@ tt=display_c();
 
 		?>
 		</div>
-
-
-
+		
+		<div id="right">
+		<center>
+		<h3>The current time is: </h3><br>
+		<span id='ct'></span>
+		<br><hr></center>
+		<h2 style="text-align:center;">Manage Content</h2>
+			<a href="index.php?view_customers">View Customers</a>
+			<a href="index.php?view_products">View Staffs</a>
+			<a href="index.php?insert_staff">Add Staffs</a>
+			<a href="index.php?login_log">View Logins</a>
+			<a href="index.php?delete_log">View Delete Logs</a>
+			<a href="logout.php">Admin Logout</a>
+		</div>		
+	
+	</div>
 	</div>
 
 	<footer></footer>

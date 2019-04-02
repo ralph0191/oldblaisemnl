@@ -35,7 +35,7 @@ if(!isset($_SESSION['user_email'])){
 else {
 
 ?>
-<table width="1000px;" align="center"> 
+<table width="1100" align="center"> 
 
 	
 	<tr align="center">
