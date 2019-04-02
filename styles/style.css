@@ -20,6 +20,7 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	vertical-align: baseline;
+	color: black;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -32,8 +33,8 @@ a{
 }
 
 body {
-	color: #e6e6e6;
-	font-family: 'Raleway', sans-serif;
+	color: black;
+	font-family: 'raleway', sans-serif;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	-moz-background-size: cover;
@@ -49,7 +50,7 @@ body {
 
 body:after {
   content: "";
-  background: url(../images/bgpink.jpg);
+  background: url(../images/BG1.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -68,15 +69,15 @@ body:after {
 }
 
 @font-face {
-    font-family: gentleFont;
-    src: url(fonts/gentle.ttf);
+    font-family: zamrackFont;
+    src: url(fonts/zamrack.ttf);
 }
 
 .header_wrapper {
     width: 100%;
     height: 100px;
     z-index: 10;
-    background-color: #000000ab;
+    background-color: #aecdad9c;
 }
 
 .header {
@@ -95,23 +96,23 @@ body:after {
     color: #797778;
     font-size: 60px;
     transition: all 0.3s ease-in-out;
-    font-family: gentleFont;
+    font-family: zamrackFont;
     letter-spacing: 5px;
 }
 
 .header_wrapper h1:hover{
-	color: #f11d87;
+	color: #aecdad9c;
 	text-shadow: 2px 2px 5px black;
 	transition: all 0.3s ease-in-out;
 }
 
 .header_wrapper span{
-	color: #f11d87;
+	color: #fefefe;
 	transition: all 0.3s ease-in-out;
 }
 
 .header_wrapper h1:hover span{
-	color: #797778;
+	color: #fefefe;
 	text-shadow: 2px 2px 5px black;
 	transition: all 0.3s ease-in-out;
 }
@@ -177,10 +178,10 @@ span.my_account {
 #menu li a{
     color: #ffffff;
     text-decoration: none;
-    font-size: 20px;
-    padding: 9px;
+    font-size: 30px;
+    padding: 20px;
     margin: 5px;
-    font-family: gentleFont;
+    font-family: zamrackFont;
     letter-spacing: 3px;
 }
 
@@ -209,7 +210,7 @@ span.my_account {
 }
 
 .searchbtn {
-    background-color: #f11d87;
+    background-color: #F0C38F;
     color: white;
     transition: all 0.3s ease-in-out;
     height: 30px;
@@ -222,7 +223,7 @@ span.my_account {
 
 .searchbtn:hover {
     background-color: white;
-    color: #f11d87;
+    color: #F0C38F;
 	transition: all 0.3s ease-in-out;
 }
 
@@ -250,7 +251,7 @@ span.my_account {
 
 
 .shopping_cart {
-    background-color: rgba(214, 71, 158, 0.63);
+    background-color: #aecdad9c;
     padding: 10px;
 }
 
@@ -285,7 +286,6 @@ span.item_details {
 
 #content_area{
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
 	border: 1px solid #777;
 }
 
@@ -296,7 +296,7 @@ div#upper-content {
 }
 
 #sidebar {
-    background: #444;
+    background: #F4EEE1;
     display: table-cell;
     vertical-align: -webkit-baseline-middle;
     width: 20%;
@@ -306,12 +306,12 @@ div#upper-content {
 #sidebar_title {
     width: 100%;
     background: #ffffff00;
-    color: #f12f86;
+    color: #AECDAD;
     font-size: 60px;
     padding: 10px;
     text-align: center;
     font-weight: 700;
-    font-family: gentleFont;
+    font-family: zamrackFont;
 }
 
 #cats{
@@ -321,13 +321,13 @@ div#upper-content {
 #cats li {
     list-style: none;
     margin: 10px;
-    font-family: gentleFont;
+    font-family: zamrackFont;
 }
 
 .my_account_menu li {
     list-style: none;
     margin: 10px;
-    font-family: gentleFont;
+    font-family: zamrackFont;
     display: inline-block;
 }
 
@@ -337,7 +337,7 @@ div#upper-content {
 
 
 #cats a{
-	color:white;
+	color:black;
 	font-size:25px;
 	padding:8px;
 	margin:5px;
@@ -351,6 +351,7 @@ div#upper-content {
 
 .upper_content {
     display: table;
+	background: #F4EEE1;
     width: 100%;
 }
 
@@ -360,13 +361,13 @@ div#upper-content {
 }
 
 .content_up {
-    background: #444;
+    background: #F4EEE1;
     color: #ddd;
     padding: 20px;
     text-align: center;
 }
 .content_low{
-	background: pink;
+	background: #AECDAD;
     color: #222222;
     padding: 20px;
 	text-align: center;
@@ -375,15 +376,16 @@ div#upper-content {
 .content_low h3{
     font-size: 55px;
     font-weight: 600;
-    font-family: gentleFont;
+    font-family: zamrackFont;
     letter-spacing: 3px;
 }
 
 .home_img {
-    background-image: url(../images/SSLOGO1.jpg);
-    height: 400px;
+    background-image: url(../images/BANNER1.jpg);
+    height: 250px;
+	width: 720px;
     border: 1px solid #666666;
-    background-position: center center;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 	padding: 100px;
@@ -419,7 +421,7 @@ div#login_box {
 #login_box .login{
     height: 40px;
     width: 150px;
-    background-color: #ffcc00;
+    background-color: #aecdad;
     border: 1px solid #444;
     box-shadow: 0 0 5px #444;
     padding: 5px;
@@ -546,7 +548,7 @@ div#cart_box {
     display: table-cell;
     font-size: 20px;
     font-weight: 700;
-    color: white;
+    color: black;
 }
 
 .check_out {
@@ -593,7 +595,7 @@ div#cart_box {
 #single_product {
     display: inline-block;
     width: 40%;
-    border: 2px solid #ffc0cb96;
+    border: 2px solid #AECDAD;
     margin: 10px;
     padding: 30px;
 }
@@ -608,7 +610,7 @@ div#lower-content {
     width: 100%;
     padding-bottom: 100px;
     font-weight: 700;
-	background-color: #e4e4e4;
+	background-color: #fefefe;
 }
 
 #lower-content p {
@@ -725,7 +727,7 @@ div#get-in-touch a:hover{
 }
 
 .footer_wrapper{
-    background-color: rgba(25, 24, 24, 0.75); 
+    background-color: #aecdadb0; 
     color: #fff;
     text-align: center;
     font-size: 13px;

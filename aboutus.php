@@ -18,37 +18,6 @@ include ("functions/functions.php");
 
 <body>
 
-
-<!--Header starts here-->
-	<div class="header_wrapper">
-	<div class="header">
-		<div class="logo">
-		<h1><span>Blaise</span>Mnl</h1>
-		</div>
-	<!--Menubar starts here-->
-		<div class="menu_wrapper">
-		<div class="menubar">
-			<ul id="menu">		
-				<li class="current_list_item"><a class="home" href="index.php" >Home</a></li>
-				<li><a href="AboutUs.php" >About Us</a></li>
-				<li><a href="all_products.php">All Products</a></li>
-				<li><a href="register.php">Register</a></li>
-			</ul>
-
-			<div id="form" class="search_form">
-				<form method="get" action="results.php" enctype="multipart/form-data">
-				<input type="text" class="searchfrm" name="user_query" placeholder="Search for a product"/>
-				<input  type="submit" class="searchbtn" name="search" value="Search" />
-				</form>
-			</div>
-		</div>
-		</div>
-	<!--Menubar ends here-->
-	</div>	
-	</div>
-<!--Header ends here-->
-
-<!--Main Container starts here!-->
 	<div class="main_wrapper">
 		<div class="login_details">
 				<?php 
@@ -63,10 +32,10 @@ include ("functions/functions.php");
 
 					if(!isset($_SESSION['customer_email'])){
 			
-					echo "<a href='login.php' style='color:yellow;'>Login</a>";}
+					echo "<a href='login.php' style='color:teal;'>Login</a>";}
 		
 					else{
-						echo "<a href='logout.php' style='color:yellow;'>- Logout</a>";
+						echo "<a href='logout.php' style='color:teal;'>- Logout</a>";
 					}?>	
 			</div>
 		<div class="shopping_cart">		
@@ -126,13 +95,10 @@ The aim to provide affordable products that are 100% Authentic.
 						</p>
 					</div>
 					<div class="git right">
-						<h3>How's our website? Add your suggestions!</h3>
-						<ul id="contact-list">
-							<li>Name:<input type="text"></input></li>
-							<li>Email:<input type="text"></input></li>
-							<li id="message">Message:<textarea rows="3"  ></textarea></li>
-							<a href="#">Send</a>
-						</ul>
+						<body>
+						<img src="images/BOTTOM.jpg" alt="bottominfo" />
+					
+						
 					</div>
 				</div>
 				
@@ -151,7 +117,7 @@ The aim to provide affordable products that are 100% Authentic.
 <!--Footer starts here!-->
 <div id="footer">
 	<div class="footer_wrapper">
-		&copy; 2018 Developed by <a href="#">Regine Lau & Ralph Suga</a>&nbsp;&nbsp;|&nbsp;&nbsp;Design by <a href="#" target="_blank" >Miguel Delos Santos</a> 
+		&copy; 2018 Developed by <a href="#">Regine Lau, Ralph Suga and Vince Villegas</a>&nbsp;&nbsp;|&nbsp;&nbsp;Design by <a href="#" target="_blank" >Danielle Roldan</a> 
 	</div>
 </div>
 <!--Footer ends here!-->

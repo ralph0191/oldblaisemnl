@@ -1,7 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <?php
+
 include("includes/db.php");
+
 ?>
 
 
@@ -85,6 +87,7 @@ include("includes/db.php");
 
 
 <?php
+
 if(isset($_POST['insert_post'])){
 	
 	//getting text data from the fields
@@ -102,6 +105,7 @@ if(isset($_POST['insert_post'])){
 	move_uploaded_file($prod_tmp_image, "../admin_area/product_images/$prod_image");
 	
 	$insert_prod = "insert into products (prod_title,prod_cat,prod_qty,prod_price,prod_image,dateentered,prod_desc) values ('$prod_title','$prod_cat','$prod_qty','$prod_price','$prod_image','$date','$prod_desc')";
+
 	$insert_pro=mysqli_query($con,$insert_prod);
 	
 	if($insert_pro){
@@ -113,4 +117,3 @@ if(isset($_POST['insert_post'])){
 	
 }
 ?>
-
