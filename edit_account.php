@@ -12,7 +12,6 @@
 				$c_id = $row_customer['customer_id'];
 				$name = $row_customer['customer_name'];
 				$email = $row_customer['customer_email'];
-				$pass = $row_customer['customer_pass'];
 				$country = $row_customer['customer_country'];
 				$city = $row_customer['customer_city'];
 				$contact = $row_customer['customer_contact'];
@@ -38,19 +37,12 @@
 						<tr>
 							<td align="center">Customer Email:</td>
 							<td><input type="text" name="c_email" value="<?php echo $email;?>" required/></td>
-						</tr>
-						
-						<tr>
-							<td align="center">Customer Password:</td>
-							<td><input type="password" name="c_pass" value="<?php echo $pass;?>" required/></td>
-							
-						</tr>
-						
+						</tr>		
 						<tr>
 						
 						<td align="right">Customer Image:
 							<input type="file" name="c_image"/></td>
-						<td><img src="customer_images/<?php echo $image; ?>" width="50" height="50"/></td>
+						<td><img src="customer/customer_images/<?php echo $image; ?>" width="50" height="50"/></td>
 						</tr>
 						
 						
@@ -119,9 +111,9 @@
 		$c_city = $_POST['c_city'];
 		$c_contact = $_POST['c_contact'];
 		$c_address = $_POST['c_address'];
-	
 		
-		move_uploaded_file($c_image_tmp,"customer_images/$c_image");
+		
+		move_uploaded_file($c_image_tmp,"customer/customer_images/$c_image");
 		
 		 $update_c = "update customers set customer_name='$c_name', customer_email='$c_email', customer_pass='$c_pass',customer_city='$c_city', customer_contact='$c_contact',customer_address='$c_address',customer_image='$c_image' where customer_id='$customer_id'";
 	
