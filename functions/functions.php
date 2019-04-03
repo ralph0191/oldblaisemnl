@@ -69,30 +69,28 @@ function total_items(){
 		
 		$ip = getIp();
 		
-		$get_items = "select * from cart where customer_id='$ip'";
+		$get_items = "select SUM(qty) AS TotalItemsOrdered, customer_id from cart where customer_id='$ip'";
 		
 		$run_items = mysqli_query($con, $get_items);
-		
-		$count_items = mysqli_num_rows($run_items);
-		
+		$rowItems = mysqli_fetch_array($run_items); 
+		$sum = $rowItems["TotalItemsOrdered"];
 	}
 		
-		else{
+		else {
 			
 			global $con;
 			
 		$ip = getIp();
 		
-		$get_items = "select * from cart where customer_id='$ip'";
+		$get_items = "select SUM(qty) AS TotalItemsOrdered, customer_id from cart where customer_id='$ip'";
 		
 		$run_items = mysqli_query($con, $get_items);
-		
-		$count_items = mysqli_num_rows($run_items);
-			
+		$rowItems = mysqli_fetch_array($run_items); 
+		$sum = $rowItems["TotalItemsOrdered"];	
 		}
 		
 		
-		echo $count_items;
+		echo $sum;
 	}
 	
 //getting the total price of the items in the cart

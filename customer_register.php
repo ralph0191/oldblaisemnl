@@ -159,46 +159,39 @@ function runBGSlideShow(){
 
 		echo ("<script>alert('Password does not match')</script>!");
 		return true;
-	}
+		}
 	
-	$check_email = "select * from customers where customer_email='$c_email'";
-	$run = mysqli_query($con,$check_email);
-	if(mysqli_num_rows($run)>0){
+		$check_email = "select * from customers where customer_email='$c_email'";
+		$run = mysqli_query($con,$check_email);
+		if(mysqli_num_rows($run)>0){
 		
-		echo ("<script>alert('Email $c_email is already exist')</script>");
+			echo ("<script>alert('Email $c_email is already exist')</script>");
 		
-		return true;
+			return true;		
+		}
 		
-		
-	}
 		
 		move_uploaded_file($c_image_tmp,"customer/customer_images/$c_image");
-		
-		 $insert_c = "insert into customers (customer_ip,customer_name,customer_email,customer_pass,customer_country,customer_city,customer_contact,customer_address,customer_image) values ('$ip','$c_name','$c_email','$c_pass','$c_country','$c_city','$c_contact','$c_address','$c_image')";
-		
+		$insert_c = "insert into customers (customer_ip,customer_name,customer_email,customer_pass,customer_country,customer_city,customer_contact,customer_address,customer_image) values ('$ip','$c_name','$c_email','$c_pass','$c_country','$c_city','$c_contact','$c_address','$c_image')";
 		$run_c = mysqli_query($con, $insert_c);
-		
 		$sel_cart = "select * from cart where ip_add='$ip'";
-		
 		$run_cart = mysqli_query($con, $sel_cart); 
-		
 		$check_cart = mysqli_num_rows($run_cart); 
-		
 		if($check_cart==0){
 		
-		$_SESSION['customer_email']=$c_email;
-		
-		echo "<script>alert('Account has been created successfully, Thanks!')</script>";
-		echo "<script>window.open('customer/my_account.php','_self')</script>";
-		
-		unset($c_name);
-		unset($c_email);
-		unset($confirmpassword);
-		unset($c_image);
-		unset($c_country);
-		unset($c_city);
-		unset($c_contact);
-		unset($c_address);
+			$_SESSION['customer_email']=$c_email;
+			
+			echo "<script>alert('Account has been created successfully, Thanks!')</script>";
+			echo "<script>window.open('my_account.php','_self')</script>";
+			
+			unset($c_name);
+			unset($c_email);
+			unset($confirmpassword);
+			unset($c_image);
+			unset($c_country);
+			unset($c_city);
+			unset($c_contact);
+			unset($c_address);
 		
 		}
 		else {
@@ -207,7 +200,7 @@ function runBGSlideShow(){
 		
 		echo "<script>alert('Account has been created successfully, Thanks!')</script>";
 		
-		echo "<script>window.open('customer/checkout.php','_self')</script>";
+		echo "<script>window.open('checkout.php','_self')</script>";
 		
 		
 		}
