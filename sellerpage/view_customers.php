@@ -30,15 +30,12 @@
 </center>
 	<br>
 	<center>
-	
+	<h2 colspan="9" style="text-align: center;">View Inventory by Category</h2>
+	<br />
 	<table width="100%" align="center"> 
 
 	
-	<tr align="center">
-		<td colspan="6"><h2>View All Products Here</h2></td>
-	</tr>
-	
-	<tr align="center" bgcolor="#ff8000" style="text-align:center;">
+	<tr align="center" bgcolor="#e3e5e8" style="text-align:center;">
 		<th>I.D.</th>
 		<th>Name</th>
 		

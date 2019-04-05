@@ -6,80 +6,56 @@ if(!isset($_SESSION['user_email'])){
 	echo "<script>window.open('login.php?not_admin=You are not an Admin!','_self')</script>";
 }
 else {
-?>
-<table width="100%" align="center"> 
-
-	
-	<tr align="center">
-		<td colspan="8"><h2>Recieved Orders</h2></td>
-	</tr>
-	
-	<tr align="center" bgcolor="#ff8000" style="text-align:center;">
-		<th>Order ID</th>
-		<th style="display:none">Transaction id</th>
-		<th>Product (S)</th>
-		<th>Quantity</th>
-		<th>Product Image</th>
-		<th>Order Date</th>
-		<th>Customer</th>
-		<th>Status</th>
-		<th>Receive Order</th>
-	</tr>
-	<?php 
-	include("includes/db.php");
-	
-	$email = $_SESSION['customer_email'];
-	
-	$get_order = "select * from orders where status= 'Shipped'";
-	
-	$run_order = mysqli_query($con, $get_order); 
-	
-	while ($row_pro=mysqli_fetch_array($run_order)){
-		
-	$order_id = $row_pro['orderid'];
-		$qty = $row_pro['qty'];
-		$pro_id = $row_pro['pro_id'];
-		$order_date = $row_pro['order_date'];
-		$cust = $row_pro['customer'];
-		$status = $row_pro['status'];
-		$receipt = $row_pro['receipt_id'];
-		$i++;
-		
-		$get_pro = "select * from products where prod_id='$pro_id'";
-		$run_pro = mysqli_query($con, $get_pro); 
-		
-		$row_pro=mysqli_fetch_array($run_pro); 
-		
-		$pro_image = $row_pro['prod_image']; 
-		$pro_title = $row_pro['prod_title'];
-	
-
-		
-?>
-
-	<tr align="center" style="text-align:center;">
-			<td><?php echo $order_id;?></td>
-		<td style="display:none"><?php echo $receipt ?>
-		<td><?php echo $pro_title;?></td>
-			<td><?php echo $qty;?></td>
-		<td><img src="../admin_area/product_images/<?php echo $pro_image;?>" width="50" height="50" />
-		</td>
-	
-		<td><?php echo $order_date;?></td>
-		<td><?php echo $cust;?></td>
-		<td><?php echo $status;?></td>
-
-		<td><a href="d.php?d_pro=<?php echo $receipt;?>"><img src="done.png" width="50" height="50"></a></td>
-	
-	</tr>
-	<?php
-
-
+	$email = $_SESSION['user_email'];
+	$sql = "SELECT 
+	orderid, qty, receipt_id, order_date, customer, Status, products.prod_image AS image, products.prod_title AS product_name
+FROM 
+	orders
+LEFT JOIN 
+    products ON products.prod_id = orders.pro_id
+WHERE
+    orders.status = 'Shipped'";	
+	$result = $con->query($sql);
+	$order_users = [];
+	if ($result->num_rows > 0) {
+		$order_users = $result->fetch_all(MYSQLI_ASSOC);
 	}
-
-
-	?>
-</table>
-
+?>
+<table style="text-align:center;" id="usetTable" class="table">
+        <thead>
+            <th>Order ID</th>
+            <th>Product (S)</th>
+            <th>Quantity</th>
+            <th>Product Image</th>
+            <th>Order Date</th>
+            <th>Customer</th>
+            <th>Status</th>
+            <th>Receive Order</th>
+	    </thead>
+	    <tbody>
+            <?php if(!empty($order_users)) { ?>
+                <?php foreach($order_users as $order) { ?>
+                    <tr>
+                    <td><?php echo $order['orderid']; ?></td>
+					<td><?php echo $order['product_name']; ?></td>
+					<td><?php echo $order['qty']; ?></td>
+					<td><img src="../admin_area/product_images/<?php echo $order['image'];?>" width="50" height="50"></td>
+					<td><?php echo $order['order_date']; ?></td>
+					<td><?php echo $order['customer']; ?></td>
+					<td><?php echo $order['Status']; ?></td>
+					<td><a href="d.php?d_pro=<?php $order['receipt_id'];?>"><img src="done.png" width="50" height="50"></a></td>
+					
+                    </tr>
+                <?php } ?>
+            <?php } ?>
+    	</tbody>
+    </table>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('#usetTable').DataTable();
+} );
+</script>
 <?php } ?>
 
