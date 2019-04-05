@@ -67,7 +67,7 @@ tt=display_c();
 
 <div class="header_wrapper">
 		
-		<h1>ADMIN AREA</h1>
+		<h1>SELLER AREA</h1>
 		
 		</div>
 
@@ -115,7 +115,7 @@ tt=display_c();
 	
 	if($check_user==1){
 		
-	$delete_pro = "Update orders SET status = 'Shipped', recieved_by = '$email' where receipt_id='$delete_id'"; 
+	$delete_pro = "UPDATE orders SET status = 'In Transit', recieved_by = '$email' WHERE receipt_id='$delete_id'"; 
 	$run_delete = mysqli_query($con, $delete_pro); 
 
 	if($run_delete){

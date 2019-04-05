@@ -55,7 +55,7 @@ tt=display_c();
 </script>
 
 	<head>
-		<title>STAFF AREA</title> 
+		<title>Seller AREA</title> 
 		
 	<link rel="stylesheet" href="styles/style.css" media="all" /> 
 	</head>
