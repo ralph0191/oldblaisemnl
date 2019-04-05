@@ -1,14 +1,9 @@
 <?php 
-
-	$sql = "SELECT
-		orders.orderid, products.prod_title, orders.qty, products.prod_image, orders.status, orders.order_date
-	FROM 
-		orders 
-	LEFT JOIN
-		products ON products.prod_id = orders.pro_id
-	WHERE
-		 orders.customer = 'eizen'
-		 ORDER BY orders.order_date DESC";
+	$user = $_SESSION['customer_email'];
+	$sql = "SELECT receipt_id, datepurchase, cust_email, Status
+	FROM order_receipt
+	WHERE cust_email = '$user'
+	ORDER BY receipt_id DESC";
 	$result = $con->query($sql);
 	$order_users = [];
 	if ($result->num_rows > 0) {
@@ -19,9 +14,7 @@
 <br/>
 <table align="center" id="usetTable" class="table"> 
 	<thead>
-		<th>Order ID</th>
-		<th>Product (S)</th>
-		<th>Quantity</th>
+		<th>tracking ID</th>
 		<th>Order Date</th>
 		<th>Status</th>
 	</thead>
@@ -29,11 +22,9 @@
 		<?php if(!empty($order_users)) { ?>
 			<?php foreach($order_users as $order) { ?>
 				<tr>
-					<td><?php echo $order['orderid']; ?></td>
-					<td><?php echo $order['prod_title']; ?></td>
-					<td><?php echo $order['qty']; ?></td>
-					<td><?php echo $order['status']; ?></td>
-					<td><?php echo $order['order_date']; ?></td>
+					<td><a href="orderdetails.php?orderNo=<?php echo $order['receipt_id']; ?>"><?php echo $order['receipt_id']; ?></a></td>
+					<td><?php echo $order['datepurchase']; ?></td>
+					<td><?php echo $order['Status']; ?></td>
 				</tr>
 			<?php } ?>
 		<?php } ?>

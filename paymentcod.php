@@ -50,7 +50,7 @@ include ("functions/functions.php");
 		$email = $_SESSION['customer_email'];
 		
 		
-		$set = "select * from customers where customer_email='$email'";
+		$set = "SELECT * FROM customers WHERE customer_email='$email'";
 		
 		$run_set = mysqli_query($con, $set); 
 		
@@ -61,48 +61,87 @@ include ("functions/functions.php");
 			$ccity = $s['customer_city'];
 			$caddress=$s['customer_address'];
 			$contact = $s['customer_contact'];
+			$_SESSION = $contact;
 			}
 	}
 			
 if (isset($_POST['update'])){
-	$get_qty = "SELECT * FROM cart";			
+	$ip = getIp();
+	$id = "";
+	if (isset($_SESSION['customer_email'])) {
+		$id = $_SESSION['user_id'];
+	}
+	$get_qty = "SELECT * FROM cart WHERE customer_id = '$id' OR ip='$ip'";			
 	$run_qty = mysqli_query($con, $get_qty);	
-	$reciptsql = "INSERT INTO order_receipt (cust_email,total) VALUES ('$email', '0')";
+	$reciptsql = "INSERT INTO `order_receipt` (`cust_email`, `Status`) VALUES ('$email', 'Pending')";
 	$run5 = mysqli_query($con, $reciptsql);
-	$selreceipt= mysqli_query($con,"select MAX(receipt_id) as maxid from order_receipt");
-	$rowxsd =mysqli_fetch_assoc($selreceipt);
-	$maxidx= $rowxsd['maxid'];
+	
+	$get_receipt = "SELECT 
+		MAX(receipt_id) AS maxid 
+	FROM 
+		order_receipt
+	WHERE 
+		cust_email = '$email'
+	";
+	$receipt = $con->query($get_receipt);
 
+	$receiptMax = 0;
+	if ($receipt->num_rows > 0) {
+		while ($row = $receipt->fetch_assoc()) {
+			$receiptMax = $row['maxid'];
+		}
+	}
+	$getAgain = "SELECT * FROM cart WHERE customer_id = '$id' OR ip='$ip'";			
+	$runGet = $con->query($getAgain);
+	while ($rows = $runGet->fetch_assoc()) {
+		$prodId = $rows['p_id'];
+		$prodQty = $rows['qty'];
+		$customer = $rows['customer_id'];
+
+		$insertOrderSQL = "INSERT INTO `orders` (`receipt_id`, `qty`, `pro_id`, `order_date`, `CustomerID`, `Status`, `recieved_by`) 
+		VALUES ($receiptMax, $prodQty, $prodId, CURDATE(), $customer, 'Pending', 'None')";
+		$runInsertSQL = mysqli_query($con, $insertOrderSQL) or die(mysqli_error($con));
+		$reduceProductSQL = "UPDATE products SET prod_qty = prod_qty - '$prodQty' WHERE prod_id = '$prodId'";
+		$runReduceSQL = mysqli_query($con, $reduceProductSQL) or die(mysqli_error($con));
+	
+		if($runReduceSQL){
+
+			echo "<script>window.open('my_account.php?my_orders','_self')</script>";	
+			echo "<script>alert('Your purchase is complete, You can view your order's status on my order tab')</script>";
+			
+			$reset = "DELETE FROM cart WHERE customer_id = '$id' OR ip='$ip'";
+			$run = mysqli_query($con, $reset) or die(mysqli_error($con));
+		}
+	}
+	/*
 	while ($row_qty = mysqli_fetch_array($run_qty)){
-		$id = $row_qty['p_id'];
+		$prodId = $row_qty['p_id'];
 		$qty = $row_qty['qty'];	
 		$arraysum = array_sum($qty);
-		$test_sql = "select prod_price from products where prod_id='$id'";
+		$test_sql = "SELECT prod_price FROM products WHERE prod_id='$prodId'";
 		$run_test = mysqli_query($con, $test_sql); 
 		$row_test = mysqli_fetch_array($run_test);
 				
 		$price = $row_test['prod_price']; 
 		$total = $price * $qty;
-		$sql = "Insert into orders (receipt_id, qty, pro_id, order_date, customer, Status, customer_address, recieved_by, customer_contact, date_paid) 
-					VALUES ('$maxidx','$qty','$id',CURDATE(),'$email','Pending','$caddress', 'N/A', '123', '')";
+		$sql = "INSERT INTO orders (receipt_id, qty, pro_id, order_date, customer, Status, customer_address, recieved_by, customer_contact, date_paid) 
+					VALUES ('$receipt','$qty','$proId',CURDATE(),'$email','Pending','$caddress', 'N/A', '', '')";
 		$run4 = mysqli_query($con, $sql) or die(mysqli_error($con));
 		
-		$query3 = "UPDATE products SET prod_qty = prod_qty - '$qty' WHERE prod_id = '$id'";
+		$query3 = "UPDATE products SET prod_qty = prod_qty - '$qty' WHERE prod_id = '$proId'";
 		$result3 = mysqli_query($con, $query3); 
 
 		$ip = getIp(); 
 			
-		$query2 = "Insert into sales (sale_date,sale_product_id,sale_buyer,sale_qty,sale_amount) VALUES (CURDATE(),'$id','$email','$qty','$total')";
-		$run3 = mysqli_query($con, $query2) or die(mysqli_error($con));			
-
 		if($result3){
 
-			echo "<script>alert('Your purchase is complete, You can view your order's status on my order tab')</script>";
 			echo "<script>window.open('my_account.php?my_orders','_self')</script>";	
-			$reset = "DELETE FROM cart";
+			echo "<script>alert('Your purchase is complete, You can view your order's status on my order tab')</script>";
+			
+			$reset = "DELETE FROM cart WHERE customer_id = '$id' OR ip='$ip'";
 			$run = mysqli_query($con, $reset) or die(mysqli_error($con));
 		} 
-	}
+	}*/
 }
 			?> 
 

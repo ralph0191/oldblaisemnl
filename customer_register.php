@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("functions/functions.php");
-include("includes/db.php"); 
+
 ?>
 
 
@@ -196,19 +196,11 @@ function runBGSlideShow(){
 		}
 		else {
 		
-		$_SESSION['customer_email']=$c_email; 
-		
+		$_SESSION['customer_email'] = $c_email; 
+		$_SESSION['customer_name']  = $c_name;
 		echo "<script>alert('Account has been created successfully, Thanks!')</script>";
 		
 		echo "<script>window.open('checkout.php','_self')</script>";
-		
-		
 		}
-		
 	}
-
-
-
-
-
 ?>
