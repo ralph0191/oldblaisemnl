@@ -94,9 +94,10 @@ include("includes/db.php");
 	$check_user = mysqli_num_rows($run_user); 
 	
 	if($check_user==1){
-	
-		$_SESSION['user_email']= $email;
-	echo "<script>window.open('index.php?dashboard=You have successfully Logged in!','_self')</script>";
+		echo $check_user["staff_email"];
+		
+		$_SESSION['user_email'] = $email;
+		echo "<script>window.open('index.php?dashboard=You have successfully Logged in!','_self')</script>";
 	
 	}
 	else {
