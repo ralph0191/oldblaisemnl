@@ -6,11 +6,11 @@ if(!isset($_SESSION['user_email'])){
 else {
 
 ?>
-<table width="780" align="center"> 
+<table width="100%" align="center"> 
 
 	
 	<tr align="center">
-		<td colspan="6"><h2>View Staffs Here</h2></td>
+		<td colspan="6"><h2>View Seller Here</h2></td>
 	</tr>
 	
 	<tr align="center" bgcolor="#8c6d00" style="text-align:center;">

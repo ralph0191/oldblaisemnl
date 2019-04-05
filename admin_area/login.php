@@ -69,7 +69,7 @@ function runBGSlideShow(){
 <h2 style="color:white; text-align:center;"><?php echo @$_GET['logged_out']; ?></h2><br>
 	
 	<form class="form-signin" method="post" action="login.php">
-		<h2 class="form-signin-heading">Super User Login</h2>
+		<h2 class="form-signin-heading">Admin Login</h2>
     	<input type="text" class="form-control" name="email" placeholder="Enter e-mail" required="required" />
         <input type="password" class="form-control" name="password" placeholder="Enter password" required="required" />
         <button class="btn btn-primary btn-block btn-large" type="submit" name="login">Login</button>

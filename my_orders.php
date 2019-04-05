@@ -1,66 +1,49 @@
 <?php 
 
-	include("includes/db.php");
-	?>
-	
-<table width="700" align="center"> 
-
-	
-	<tr align="center">
-		<td colspan="6"><h2>Your Orders details:</h2></td>
-	</tr>
-	
-	<tr align="center" >
+	$sql = "SELECT
+		orders.orderid, products.prod_title, orders.qty, products.prod_image, orders.status, orders.order_date
+	FROM 
+		orders 
+	LEFT JOIN
+		products ON products.prod_id = orders.pro_id
+	WHERE
+		 orders.customer = 'eizen'
+		 ORDER BY orders.order_date DESC";
+	$result = $con->query($sql);
+	$order_users = [];
+	if ($result->num_rows > 0) {
+		$order_users = $result->fetch_all(MYSQLI_ASSOC);
+	}
+?>
+<h1>MY ORDERS</h1>
+<br/>
+<table align="center" id="usetTable" class="table"> 
+	<thead>
 		<th>Order ID</th>
 		<th>Product (S)</th>
 		<th>Quantity</th>
-		<th>Product Image</th>
 		<th>Order Date</th>
 		<th>Status</th>
-		<th>Recieved By</th>
-	</tr>
-	<?php 
-	$email = $_SESSION['customer_email'];
-	
-	$get_order = "select * from orders where customer = '$email'";
-	
-	$run_order = mysqli_query($con, $get_order); 
-	
-	$i = 0;
-
-	
-	while ($row_order=mysqli_fetch_array($run_order)){
-		
-		$order_id = $row_order['orderid'];
-		$qty = $row_order['qty'];
-		$pro_id = $row_order['pro_id'];
-		$order_date = $row_order['order_date'];
-		$status = $row_order['status'];
-		$recieved = $row_order['recieved_by'];
-		$i++;
-		
-		$get_pro = "select * from products where prod_id='$pro_id'";
-		$run_pro = mysqli_query($con, $get_pro); 
-		
-		$row_pro=mysqli_fetch_array($run_pro); 
-		
-		$pro_image = $row_pro['prod_image']; 
-		$pro_title = $row_pro['prod_title'];
-	
-	?>
-	<tr align="center">
-		<td><?php echo $order_id;?></td>
-		<td>
-		<?php echo $pro_title;?></td>
-			<td><?php echo $qty;?></td>
-		<td><img src="admin_area/product_images/<?php echo $pro_image;?>" width="50" height="50" />
-		</td>
-	
-		<td><?php echo $order_date;?></td>
-		<td><?php echo $status;?></td>
-		<td><?php echo $recieved;?></td>
-	
-	</tr>
-	<?php } ?>
+	</thead>
+	<tbody>
+		<?php if(!empty($order_users)) { ?>
+			<?php foreach($order_users as $order) { ?>
+				<tr>
+					<td><?php echo $order['orderid']; ?></td>
+					<td><?php echo $order['prod_title']; ?></td>
+					<td><?php echo $order['qty']; ?></td>
+					<td><?php echo $order['status']; ?></td>
+					<td><?php echo $order['order_date']; ?></td>
+				</tr>
+			<?php } ?>
+		<?php } ?>
+	</tbody>
 </table>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('#usetTable').DataTable();
+} );
+</script>
 

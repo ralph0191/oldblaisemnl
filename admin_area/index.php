@@ -259,11 +259,11 @@ tt=display_c();
 		<br><hr></center>
 		<h2 style="text-align:center;">Manage Content</h2>
 			<a href="index.php?view_customers">View Customers</a>
-			<a href="index.php?view_products">View Staffs</a>
-			<a href="index.php?insert_staff">Add Staffs</a>
-			<a href="index.php?login_log">View Logins</a>
-			<a href="index.php?delete_log">View Delete Logs</a>
-			<a href="logout.php">Admin Logout</a>
+			<a href="index.php?view_products">View Seller</a>
+			<a href="index.php?view_cats" class="opt">View All Categories</a>
+			<a href="index.php?insert_cat" class="opt">Insert New Category</a>
+			<a href="index.php?insert_staff">Add Seller</a>
+			<a href="logout.php">Logout</a>
 		</div>		
 	
 	</div>
