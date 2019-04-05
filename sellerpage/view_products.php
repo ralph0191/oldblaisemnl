@@ -1,119 +1,87 @@
-
-
-<script language="JavaScript" type="text/javascript">
-function checkDelete(){
-	
-	var person = prompt("Please enter your name", "");
-if (person != null) {
-    document.getElementById("demo").innerHTML =
-    "Hello " + person + "! How are you today?";
+<?php
+ 
+$sql = "SELECT
+prod_id, prod_title, prod_image, prod_price, prod_qty, dateentered, prod_cat
+FROM 
+products";
+$result = $con->query($sql);
+$order_users = [];
+if ($result->num_rows > 0) {
+    $order_users = $result->fetch_all(MYSQLI_ASSOC);
 }
-	
-	 /* if (confirm("Poista?") == true) {
-    return true;
-  } else {
-    return false;
-  }
-	*/
-    
-}
-
-function popup(mylink, windowname) { 
-    if (! window.focus)return true;
-    var href;
-    if (typeof(mylink) == 'string') href=mylink;
-    else href=mylink.href; 
-    window.open(href, windowname, 'width=400,height=200,scrollbars=yes'); 
-    return false; 
-  }
-</script>
-<?php 
-if(!isset($_SESSION['user_email'])){
-	
-	echo "<script>window.open('login.php?not_admin=You are not an Admin!','_self')</script>";
-}
-else {
-
 ?>
-<table width="1100" align="center"> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Datatable</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <table id="usetTable" class="table">
+        <thead>
+            <th>Product ID</th>
+            <th>Product Title</th>
+            <th>Quantity</th>
+            <th>Product Image</th>
+						<th>Edit</th>
+						<th>Delete</th>
+            <th>Release Date</th>
+            <th>Category</th>
+	    </thead>
+	    <tbody>
+            <?php if(!empty($order_users)) { ?>
+                <?php foreach($order_users as $order) { ?>
+                    <tr>
+                        <td><?php echo $order['prod_id']; ?></td>
+                        <td><?php echo $order['prod_title']; ?></td>
+                        <td><?php echo $order['prod_qty']; ?></td>
+                        <td><img src="../admin_area/product_images/<?php echo $order['prod_image']; ?>" height="50px" width="50px"></td>
+												<td><a href="index.php?edit_pro=<?php echo $pro_id; ?>">
+													<img src="edit-icon.png" width="50" height="50"></a></td>
+												<td><a href="index.php?del_pro=<?php echo $pro_id; ?>">
+													<img src="del-icon.png" width="50" height="50"></a></td>
+                        <td><?php echo $order['dateentered']; ?></td>
+                        <td>
+													<?php 
+													if ($order['prod_cat'] == "1") {
+														$category_string = "K-Beauty";
+													}
+													else if ($order['prod_cat'] == "2") {
+														$category_string = "Food";
+													}
+													else if ($order['prod_cat'] == "3") {
+														$category_string = "Furniture";
+													}
+													else if ($order['prod_cat'] == "4") {
+														$category_string = "Makeup";
+													}
+													else if ($order['prod_cat'] == "5") {
+														$category_string = "Skincare";
+													}
+													else {
+														$category_string = "ETC";
+													}
 
-	
-	<tr align="center">
-		<td colspan="9"><h2>View All Products Here</h2></td>
-	</tr>
-	
-	<tr align="center" bgcolor="#ff8000" style="text-align:center;">
-		<th>I.D.</th>
-		<th>Title</th>
-		<th>Image</th>
-		<th>Price</th>
-		<th>Stock</th>
-		<th>Edit</th>
-		<th>Delete</th>
-		<th>Date Released</th>
-		<th>Category</th>
-	</tr>
-	<?php 
-	include("includes/db.php");
-	
-	$get_pro = "select * from products";
-	
-	$run_pro = mysqli_query($con, $get_pro); 
-	
-	$i = 0;
-	
-	while ($row_pro=mysqli_fetch_array($run_pro)){
-		
-		$pro_id = $row_pro['prod_id'];
-		$pro_title = $row_pro['prod_title'];
-		$pro_image = $row_pro['prod_image'];
-		$pro_qty = $row_pro['prod_qty'];
-		$pro_price = $row_pro['prod_price'];
-		$released = $row_pro['dateentered'];
-		$cat = $row_pro['prod_cat'];
-		$i++;
-		
-		
-		if ($row_pro['prod_cat'] == "1") {
-    $cate = "K-Beauty";
-} elseif ($row_pro['prod_cat'] == "2"){
-     $cate = "Food";
-}
- elseif ($row_pro['prod_cat'] == "3"){
-     $cate = "Home";
-}
- elseif ($row_pro['prod_cat'] == "4"){
-     $cate = "Makeup";
-}
-elseif ($row_pro['prod_cat'] == "5"){
-	$cate = "Skincare";
-}
-else{
-$cate="Not defined";
-}
-	
-	?>
-
-</script>
-	<tr align="center" style="text-align:center;">
-		<td><?php echo $pro_id;?></td>
-		<td><?php echo $pro_title;?></td>
-		<td><img src="../admin_area/product_images/<?php echo $pro_image;?>" width="60" height="60"/></td>
-		<td>₱<?php echo $pro_price;?></td>
-		<td><?php echo $pro_qty?></td>
-		<td><a href="index.php?edit_pro=<?php echo $pro_id; ?>"><img src="edit-icon.png" width="50" height="50"></a></td>
-		<td><a href="delete_pro.php?delete_pro=<?php echo $pro_id;?>"><img src="del-icon.png" width="50" height="50"></a></td>
-		<td><?php echo $released?></td>
-		<td><?php echo $cate?></td>
-	
-	</tr>
-	<?php
-
-/*delete_pro.php?delete_pro=<?php echo $pro_id;?>*/
-	}
-
-
-	?>
-</table>
-
-<?php } ?>
+													echo $category_string;
+													?>
+												</td>
+                    </tr>
+                <?php } ?>
+            <?php } ?>
+    	</tbody>
+    </table>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#usetTable').DataTable();
+        } );
+    </script>
+</body>
+</html>

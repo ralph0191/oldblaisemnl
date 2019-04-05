@@ -15,6 +15,7 @@ else {
 		products ON products.prod_id = orders.pro_id
 	WHERE
 		orders.status = 'In Transit'";	
+
 	$result = $con->query($sql);
 	$order_users = [];
 	if ($result->num_rows > 0) {
