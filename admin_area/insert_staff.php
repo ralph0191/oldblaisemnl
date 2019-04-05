@@ -16,7 +16,7 @@ if(!isset($_SESSION['user_email'])){
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 
 	<head>
-		<title>Insert Products</title>
+		<title>Insert Seller</title>
 	</head>
 	
 <body>
@@ -26,18 +26,18 @@ if(!isset($_SESSION['user_email'])){
 <table align="center" width="780">
 
 	<tr align="center">
-		<td colspan="3"><h2>Add new Staff</h2></td>
+		<td colspan="3"><h2>Add new Seller</h2></td>
 	</tr>
 	
 	<tr>
-		<td align="center" style="padding:10px;"><b>Staff Email</b></td>
+		<td align="center" style="padding:10px;"><b>Seller Email</b></td>
 		<td align="center" colspan="2"><input type="email" name="prod_title" required/></td>
 	</tr>
 
 
 
 <tr>
-		<td align="center" style="padding:10px;"><b>Staff password</b></td>
+		<td align="center" style="padding:10px;"><b>Seller password</b></td>
 		<td align="center" colspan="2"><input type="text" name="staff_pass" required/></td>
 	</tr>
 

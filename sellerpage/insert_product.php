@@ -16,9 +16,9 @@ include("includes/db.php");
 	
 <body>
 
-<form action="insert_product.php" method="POST" enctype="multipart/form-data">
+<form action="" method="POST" enctype="multipart/form-data">
 
-<table align="center" width="780">
+<table align="left" width="100%">
 
 	<tr align="center">
 		<td colspan="3"><h2>Insert New Items Here</h2></td>
@@ -26,12 +26,12 @@ include("includes/db.php");
 	
 	<tr>
 		<td align="center" style="padding:10px;"><b>Product Title:</b></td>
-		<td align="center" colspan="2"><input type="text" name="prod_title" required/></td>
+		<td align="center" colspan="2"><input class="form-control" type="text" name="prod_title" required/></td>
 	</tr>
 
 	<tr>
 		<td align="center" style="padding:10px;"><b>Product Category:</b></td>
-		<td align="center" colspan="2"><select name="prod_cat" required><option>Select a Category</option>
+		<td align="center" colspan="2"><select class="form-control" name="prod_cat" required><option>Select a Category</option>
 		
 		<?php
 		
@@ -56,16 +56,16 @@ include("includes/db.php");
 
 	<tr>
 		<td align="center" style="padding:10px;"><b>Product Quantity:</b></td>
-		<td align="center" colspan="2" ><input type="text" name="prod_qty" required/></td>
+		<td align="center" colspan="2" ><input type="number" class="form-control" name="prod_qty" required/></td>
 	</tr>
 
 	<tr>
 		<td align="center" style="padding:10px;"><b>Product Price:</b></td>
-		<td align="center" colspan="2"><input type="text" name="prod_price" required/></td>
+		<td align="center" colspan="2"><input type="text" class="form-control" name="prod_price" required/></td>
 	</tr>
 	<tr>
 		<td align="center" style="padding:10px;"><b>Product Description:</b></td>
-		<td align="center" colspan="2"><input type="text" name="prod_desc" required/></td>
+		<td align="center" colspan="2"><input class="form-control" type="text" name="prod_desc" required/></td>
 	</tr>
 
 	<tr>
@@ -106,14 +106,11 @@ if(isset($_POST['insert_post'])){
 	
 	$insert_prod = "insert into products (prod_title,prod_cat,prod_qty,prod_price,prod_image,dateentered,prod_desc) values ('$prod_title','$prod_cat','$prod_qty','$prod_price','$prod_image','$date','$prod_desc')";
 
-	$insert_pro=mysqli_query($con,$insert_prod);
-	
-	if($insert_pro){
-		
+	$insert_pro=mysqli_query($con,$insert_prod);	
 		echo "<script>alert('Product has been inserted!')</script>";
-		echo "<script>window.open('index.php','_self')</script>";
+		echo "<script>window.open('#')</script>";
 		
-	}
+	
 	
 }
 ?>

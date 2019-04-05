@@ -17,7 +17,9 @@ include ("functions/functions.php");
 		<link rel="stylesheet" href="styles/style.css" media="all" type="text/css">
 
 <body>
-
+<?php 
+	include('includes/header.php');
+?>
 	<div class="main_wrapper">
 		<div class="login_details">
 				<?php 
