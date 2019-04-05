@@ -69,9 +69,9 @@ include ("functions/functions.php");
 								echo "<script>alert('Password or email is incorrect, please try again!')</script>";
 								return true;
 							} else {
-								$_SESSION["user_id"] = $row['customer_id'];
-								$_SESSION['customer_address'] = $row['customer_address'];
-								$_SESSION['customer_email'] = $row['customer_email'];
+								$_SESSION["user_id"] = $check_customer['customer_id'];
+								$_SESSION['customer_address'] = $check_customer['customer_address'];
+								$_SESSION['customer_email'] = $check_customer['customer_email'];
 							}
 							
 							$cus_id = $_SESSION["user_id"]; 

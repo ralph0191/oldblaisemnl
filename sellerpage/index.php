@@ -21,7 +21,10 @@ if(!isset($_SESSION['user_email'])){
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style.css">
+	<!-- Chart Bootstrap stylesheet -->
+	<link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+	<link href="css/theme.css" rel="stylesheet" media="all">
 
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
@@ -44,17 +47,17 @@ if(!isset($_SESSION['user_email'])){
             <?php 
 		if(isset($_GET['insert_product'])){
 		
-		include("insert_product.php"); 
+			include("insert_product.php"); 
 		
 		}
-			if(isset($_GET['phaseout'])){
+		if(isset($_GET['phaseout'])){
 		
-		include("phaseout.php"); 
+			include("phaseout.php"); 
 		
 		}
 		if(isset($_GET['view_products'])){
 		
-		include("view_products.php"); 
+			include("view_products.php"); 
 		
 		}
 		if(isset($_GET['edit_pro'])){
@@ -67,7 +70,13 @@ if(!isset($_SESSION['user_email'])){
 		include("insert_cat.php"); 
 		
 		}
-		
+		if(isset($_GET['dashboard'])) {
+            include("includes/dashboard.php");
+        }
+        
+        if(isset($_GET['?'])) {
+            include("includes/dashboard.php");
+        }
 		if(isset($_GET['view_cats'])){
 		
 		include("view_cats.php"); 
@@ -109,7 +118,7 @@ if(!isset($_SESSION['user_email'])){
 		
 		include("April.php"); 
 		
-		}
+        }
 		if(isset($_GET['May'])){
 		
 		include("May.php"); 
@@ -166,11 +175,7 @@ if(!isset($_SESSION['user_email'])){
 		
 		}
 		
-		
 		?>
-        </div>
-    </div>
-
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->

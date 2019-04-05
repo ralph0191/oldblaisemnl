@@ -96,7 +96,7 @@ include("includes/db.php");
 	if($check_user==1){
 	
 		$_SESSION['user_email']= $email;
-	echo "<script>window.open('index.php?logged_in=You have successfully Logged in!','_self')</script>";
+	echo "<script>window.open('index.php?dashboard=You have successfully Logged in!','_self')</script>";
 	
 	}
 	else {

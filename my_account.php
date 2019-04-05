@@ -14,6 +14,8 @@ include ("functions/functions.php");
 		<link rel="stylesheet" type="text/css" href="css/default.css" />
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
 		<!--<script src="js/modernizr.custom.js"></script>-->
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" href="styles/style.css" media="all" type="text/css">
 
 <body>
@@ -61,7 +63,6 @@ include ("functions/functions.php");
 				<li><a href="my_account.php?my_orders">My Orders</a></li>
 				<li><a href="my_account.php?edit_account">Edit Account</a></li>
 				<li><a href="my_account.php?change_pass">Change Password</a></li>
-				<li><a href="my_account.php?delete_account">Delete Account</a></li>
 				<li><a href="logout.php">Logout</a></li>
 				
 				<ul>
