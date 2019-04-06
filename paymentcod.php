@@ -193,6 +193,7 @@ if (isset($_POST['update'])){
 					<h3>Contact Us</h3>					
 				</div>
 				<div id="get-in-touch">
+					<<div id="get-in-touch">
 					<div class="git_left">
 						<p>
 							Address: BF HOMES<br>
@@ -200,15 +201,14 @@ if (isset($_POST['update'])){
 						</p>
 					</div>
 					<div class="git right">
-						<h3>How's our website? Add your suggestions!</h3>
-						<ul id="contact-list">
-							<li>Name:<input type="text"></input></li>
-							<li>Email:<input type="text"></input></li>
-							<li id="message">Message:<textarea rows="3"  ></textarea></li>
-							<a href="#">Send</a>
-						</ul>
+						<body>
+						<img src="images/BOTTOM.jpg" alt="bottominfo" />
+					
+						
 					</div>
 				</div>
+				
+				
 			</div>
 		</div>	
 	</div>
@@ -219,7 +219,7 @@ if (isset($_POST['update'])){
 
 <div id="footer">
 	<div class="footer_wrapper">
-		&copy; 2018 Developed by <a href="#">Regine Lau & Ralph Suga</a>&nbsp;&nbsp;|&nbsp;&nbsp;Design by <a href="#" target="_blank" >Miguel Delos Santos</a> 
+		&copy; 2018 Developed by <a href="#">Regine Lau, Vince Villegas & Ralph Suga</a>&nbsp;&nbsp;|&nbsp;&nbsp;Design by <a href="#" target="_blank" >Danielle Roldan</a> 
 	</div>
 </div>
 <!--Footer ends here!-->
