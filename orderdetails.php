@@ -5,12 +5,12 @@
 session_start();
 include ("functions/functions.php");
 
-if (!isset($_SESSION['user_email'])){
+if (!isset($_SESSION['customer_email'])){
 	
 	echo "<script>window.open('login.php?not_admin=You are not an Admin!','_self')</script>";
 }
 else {
-	$email = $_SESSION['user_email'];
+	$email = $_SESSION['customer_email'];
 
 if (isset($_GET['orderNo'])){
 	

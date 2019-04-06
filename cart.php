@@ -135,7 +135,7 @@ include ("functions/functions.php");
 									echo "<script>window.open('cart.php','_self')</script>";
 								}
 								else {
-								echo "<script>alert('Insufficient stocks only have $product_qty ')</script>";
+								echo "<script>alert('Cannot Process order, we only have $product_qty on stock! ')</script>";
 								}
 																
 							}

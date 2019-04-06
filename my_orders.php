@@ -17,6 +17,7 @@
 		<th>tracking ID</th>
 		<th>Order Date</th>
 		<th>Status</th>
+		<th>Action</th>
 	</thead>
 	<tbody>
 		<?php if(!empty($order_users)) { ?>
@@ -25,6 +26,8 @@
 					<td><a href="orderdetails.php?orderNo=<?php echo $order['receipt_id']; ?>"><?php echo $order['receipt_id']; ?></a></td>
 					<td><?php echo $order['datepurchase']; ?></td>
 					<td><?php echo $order['Status']; ?></td>
+					
+					<<td><a class="btn btn-danger" href="orderdetails.php?orderNo=<?php echo $order['receipt_id']; ?>">Delete</a></td>
 				</tr>
 			<?php } ?>
 		<?php } ?>
