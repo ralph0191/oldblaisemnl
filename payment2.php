@@ -10,8 +10,11 @@
 		global $con; 
 		
 		$ip = getIp(); 
-		
-		$sel_price = "select * from cart where customer_id='$ip'";
+		$id = "";
+		if (isset($_SESSION['customer_email'])) {
+			$id = $_SESSION['user_id'];
+		}
+		$sel_price = "SELECT * FROM cart WHERE customer_id='$id' OR ip='$ip' ";
 		
 		$run_price = mysqli_query($con, $sel_price); 
 		
@@ -19,7 +22,7 @@
 			
 			$pro_id = $p_price['p_id']; 
 			
-			$pro_price = "select * from products where prod_id='$pro_id'";
+			$pro_price = "SELECT * FROM products WHERE prod_id='$pro_id'";
 			
 			$run_pro_price = mysqli_query($con,$pro_price); 
 			
@@ -37,7 +40,7 @@
 }
 
 			// getting Quantity of the product 
-			$get_qty = "select * from cart where p_id='$pro_id'";
+			$get_qty = "SELECT * FROM cart WHERE p_id='$pro_id' ";
 			
 			$run_qty = mysqli_query($con, $get_qty); 
 			

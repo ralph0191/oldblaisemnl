@@ -87,6 +87,11 @@ include ("functions/functions.php");
 								echo "<script>alert('You logged in successfully!')</script>";
 								echo "<script>window.open('index.php','_self')</script>";							
 							}
+							else {
+								$_SESSION['customer_email']=$c_email; 
+								echo "<script>alert('You logged in successfully!')</script>";
+								echo "<script>window.open('index.php','_self')</script>";	
+							}
 						}
 				}
 				?>				
