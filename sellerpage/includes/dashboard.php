@@ -12,7 +12,7 @@
                                         $result = mysqli_query($con, $sql);
                                         $resultCheck = mysqli_num_rows($result);
 
-                                        if ($resultCheck > 1) {
+                                        if ($resultCheck > 0) {
                                             while ($row = mysqli_fetch_assoc($result)) {
                                                 echo "<h2>₱" . $row['MonthlySales'] . "</h2>";
                                             }
@@ -43,7 +43,7 @@
                                         $result = mysqli_query($con, $sql);
                                         $resultCheck = mysqli_num_rows($result);
 
-                                        if ($resultCheck > 1) {
+                                        if ($resultCheck > 0) {
                                             while ($row = mysqli_fetch_assoc($result)) {
                                                 echo "<h2>₱" . $row['YearlySales'] . "</h2>";
                                             }
@@ -75,7 +75,7 @@
                                         $result = mysqli_query($con, $sql);
                                         $resultCheck = mysqli_num_rows($result);
 
-                                        if ($resultCheck > 1) {
+                                        if ($resultCheck > 0) {
                                             while ($row = mysqli_fetch_assoc($result)) {
                                                 echo "<h2>" . $row['Sales'] . " items<h2/>";
                                             }
@@ -181,21 +181,21 @@
                         <th>Customer</th>
                     </thead>
                     <?php 
-                    include("includes/db.php");
-                    
-                    $sql = "SELECT orders.orderid, products.prod_title, orders.qty, 
-                    products.prod_image, orders.customer, orders.order_date
-                    FROM 
-                        orders 
-                    LEFT JOIN
-                        products ON products.prod_id = orders.pro_id
-                    WHERE
-                        DATE(orders.order_date) = DATE(now());";
-                    $result = $con->query($sql);
-                    $order_users = [];
-                    if ($result->num_rows > 0) {
-                        $order_users = $result->fetch_all(MYSQLI_ASSOC);
-                    }
+                        include("includes/db.php");
+                        
+                        $sql = "SELECT orders.orderid, products.prod_title, orders.qty, 
+                        products.prod_image, orders.customer, orders.order_date
+                        FROM 
+                            orders 
+                        LEFT JOIN
+                            products ON products.prod_id = orders.pro_id
+                        WHERE
+                            DATE(orders.order_date) = DATE(now());";
+                        $result = $con->query($sql);
+                        $order_users = [];
+                        if ($result->num_rows > 0) {
+                            $order_users = $result->fetch_all(MYSQLI_ASSOC);
+                        }
                     
                     ?>
                     <tbody>

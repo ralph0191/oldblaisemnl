@@ -53,14 +53,14 @@ if(isset($_GET['edit_pro'])){
 			
 			<tr>
 				<td align="right"><b>Product Title:</b></td>
-				<td><input type="text" name="prod_title" size="60" value="<?php echo $pro_title;?>"/></td>
+				<td><input type="text" name="prod_title" required size="60" value="<?php echo $pro_title;?>"/></td>
 			</tr>
 			
 			<tr>
 				<td align="right"><b>Product Category:</b></td>
 				<td>
 				<select name="prod_cat" >
-					<option disabled="disabled" selected="selected">Select category</option>
+					<option disabled="disabled" selected="selected" required>Select category</option>
 					<?php 
 		$get_cats = "select * from categories";
 	

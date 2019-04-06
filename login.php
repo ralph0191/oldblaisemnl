@@ -60,29 +60,37 @@ include ("functions/functions.php");
 					$c_email = $_POST['email'];
 					$c_pass = $_POST['pass'];						
 					$message="";
-						if(!empty($_POST["login"])) {
+
+						if (!empty($_POST["login"])) {
 							$sel_c = "select * from customers where customer_pass='$c_pass' AND customer_email='$c_email'";		
-							$run_c = mysqli_query($con, $sel_c);
-							$check_customer = mysqli_num_rows($run_c); 
-							
-							if($check_customer==0){
+							$result = $con->query($sel_c);
+
+							if ($result->num_rows > 0) {
+								while ($row = $result->fetch_assoc()) {
+									$_SESSION['username'] = $row['customer_name'];
+									$_SESSION["user_id"] = $row['customer_id'];
+								}
+							}
+							else {
 								echo "<script>alert('Password or email is incorrect, please try again!')</script>";
 								return true;
-							} else {
-								$_SESSION["user_id"] = $check_customer['customer_id'];
-								$_SESSION['customer_address'] = $check_customer['customer_address'];
-								$_SESSION['customer_email'] = $check_customer['customer_email'];
 							}
 							
-							$cus_id = $_SESSION["user_id"]; 
-							$sel_cart = "select * from cart where customer_id='$cus_id'";
+							$ip = getIp();
+							$cus_id = $_SESSION["user_id"];
+							$sel_cart = "SELECT * FROM cart WHERE customer_id = '$cus_id' OR ip = '$ip'";
 							$run_cart = mysqli_query($con, $sel_cart); 
 							$check_cart = mysqli_num_rows($run_cart); 
 							
-							if($check_customer>0 AND $check_cart==0){
+							if($result->num_rows > 0 AND $check_cart==0){
 								$_SESSION['customer_email']=$c_email; 
 								echo "<script>alert('You logged in successfully!')</script>";
 								echo "<script>window.open('index.php','_self')</script>";							
+							}
+							else {
+								$_SESSION['customer_email']=$c_email; 
+								echo "<script>alert('You logged in successfully!')</script>";
+								echo "<script>window.open('index.php','_self')</script>";	
 							}
 						}
 				}
