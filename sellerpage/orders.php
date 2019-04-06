@@ -27,7 +27,7 @@ if ($result->num_rows > 0) {
 </head>
 <body>
     <div class="container mt-5">
-        <table id="usetTable" class="table">
+        <table id="usetTable" class="table" style="text-align: center; align: center;">
         <thead>
             <th>Order ID</th>
             <th>Product (S)</th>

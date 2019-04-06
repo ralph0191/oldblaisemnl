@@ -22,7 +22,7 @@ if ($result->num_rows > 0) {
 </head>
 <body>
     <div class="container mt-5">
-        <table id="usetTable" class="table">
+        <table id="usetTable" class="table" style="text-align: center; align: center;">
         <thead>
             <th>Product ID</th>
             <th>Product Title</th>
@@ -41,10 +41,10 @@ if ($result->num_rows > 0) {
                         <td><?php echo $order['prod_title']; ?></td>
                         <td><?php echo $order['prod_qty']; ?></td>
                         <td><img src="../admin_area/product_images/<?php echo $order['prod_image']; ?>" height="50px" width="50px"></td>
-												<td><a href="index.php?edit_pro=<?php echo $pro_id; ?>">
-													<img src="edit-icon.png" width="50" height="50"></a></td>
-												<td><a href="index.php?del_pro=<?php echo $pro_id; ?>">
-													<img src="del-icon.png" width="50" height="50"></a></td>
+                        <td><a href="index.php?edit_pro=<?php echo $pro_id; ?>">
+                            <img src="edit-icon.png" width="50" height="50"></a></td>
+                        <td><a href="index.php?del_pro=<?php echo $pro_id; ?>">
+                            <img src="del-icon.png" width="50" height="50"></a></td>
                         <td><?php echo $order['dateentered']; ?></td>
                         <td>
 													<?php 
