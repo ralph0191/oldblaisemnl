@@ -172,14 +172,13 @@
             <div class="col-md-6">
                 <h2 colspan="9" style="text-align: center;">ORDERS TODAY</h2>
                 <br />
-                <table id="usetTable" class="table">
+                <table id="usetTable2" class="table">
                     <thead>
-                        <th>Order ID</th>
-                        <th>Product (S)</th>
+                        <th>OrderID</th>
+                        <th>Product</th>
                         <th>Quantity</th>
-                        <th>Product Image</th>
+                        <th>Image</th>
                         <th>Customer</th>
-                        <th>Order Date</th>
                     </thead>
                     <?php 
                         include("includes/db.php");
@@ -207,8 +206,7 @@
                                     <td><?php echo $order['prod_title']; ?></td>
                                     <td><?php echo $order['qty']; ?></td>
                                     <td><img src="../admin_area/product_images/<?php echo $order['prod_image']; ?>" height="50px" width="50px"></td>
-                                    <td><?php echo $order['customer'] ?></td>
-                                    <td><?php echo $order['order_date']; ?></td>
+                                    <td><?php echo $order['customer'] ?></td>   
                                 </tr>
                             <?php } ?>
                         <?php } ?>
@@ -222,5 +220,6 @@
 <script>
 $(document).ready(function() {
 	$('#usetTable').DataTable();
+    $('#usetTable2').DataTable();
 } );
 </script>
