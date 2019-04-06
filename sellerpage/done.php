@@ -22,7 +22,7 @@ else {
 		$order_users = $result->fetch_all(MYSQLI_ASSOC);
 	}
 ?>
-<table style="text-align:center;" id="usetTable" class="table">
+<table style="text-align: center; align: center;" id="usetTable" class="table">
         <thead>
             <th>Order ID</th>
             <th>Product (S)</th>
