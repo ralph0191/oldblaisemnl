@@ -8,11 +8,14 @@ if(!isset($_SESSION['user_email'])){
 else {
 	$email = $_SESSION['user_email'];
 	$sql = "SELECT 
-	orderid, qty, receipt_id, order_date, customer, Status, products.prod_image AS image, products.prod_title AS product_name
-FROM 
-	orders
-LEFT JOIN 
-	products ON products.prod_id = orders.pro_id";	
+		orderid, qty, receipt_id, order_date, customer, Status, products.prod_image AS image, products.prod_title AS product_name
+	FROM 
+		orders
+	LEFT JOIN 
+		products ON products.prod_id = orders.pro_id
+	WHERE
+		orders.status = 'In Transit'";	
+
 	$result = $con->query($sql);
 	$order_users = [];
 	if ($result->num_rows > 0) {

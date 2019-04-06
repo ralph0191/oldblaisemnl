@@ -1,6 +1,5 @@
 		<?php 	
-				include("includes/db.php"); 
-				
+			
 				$user = $_SESSION['customer_email'];
 				
 				$get_customer = "select * from customers where customer_email='$user'";
@@ -23,7 +22,7 @@
 			
 		<form action="" method="post" enctype="multipart/form-data">
 					
-					<table align="center" width="750">
+					<table align="center" width="100%">
 						
 						<tr align="center">
 							<td colspan="2"><h2>Update your Account</h2></td>

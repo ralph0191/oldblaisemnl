@@ -18,13 +18,10 @@
             <a href="index.php?view_customers" class="opt">Inventory by Category</a>
         </li>
         <li>
-            <a href="#" class="opt">Reports</a>	
-        </li>
-        <li>
             <a href="index.php?view_orders" class="opt">View Orders</a>
         </li>
         <li>
-            <a href="index.php?orders" class="opt">Recieve orders</a>
+            <a href="index.php?orders" class="opt">Receive orders</a>
         </li>
         <li>
             <a href="index.php?done" class="opt">Confirm Transanction</a>

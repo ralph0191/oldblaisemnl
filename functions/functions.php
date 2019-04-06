@@ -39,8 +39,11 @@ function cart(){
 		$ip = getIp();
 		
 		$pro_id = $_GET['add_cart'];
-		
-		$check_pro = "select * from cart where customer_id='$ip' AND p_id='$pro_id'";		
+		$id = "";
+		if (isset($_SESSION['customer_email'])) {
+			$id = $_SESSION['user_id'];
+		}
+		$check_pro = "SELECT * FROM cart WHERE customer_id='$ip' AND p_id='$pro_id'";		
 		$run_check = mysqli_query($con, $check_pro);
 		
 		if(mysqli_num_rows($run_check)>0){
@@ -48,7 +51,7 @@ function cart(){
 		}
 		else {
 			
-			$insert_pro = "insert into cart (p_id,customer_id,qty) values ('$pro_id','$ip',+1)";
+			$insert_pro = "INSERT INTO cart (p_id,ip,customer_id,qty) VALUES ('$pro_id','$ip', '$id',+1)";
 			
 			$run_pro = mysqli_query($con, $insert_pro);
 			
@@ -62,14 +65,18 @@ function cart(){
 //getting the total added items
 
 function total_items(){
-	
+	$id = "";
+		if (isset($_SESSION['customer_email'])) {
+			$id = $_SESSION['user_id'];
+		}
 	if(isset($_GET['add_cart'])){
 		
 		global $con;
 		
 		$ip = getIp();
 		
-		$get_items = "select SUM(qty) AS TotalItemsOrdered, customer_id from cart where customer_id='$ip'";
+		
+		$get_items = "SELECT SUM(qty) AS TotalItemsOrdered, customer_id FROM cart WHERE ip='$ip' OR customer_id = '$id'";
 		
 		$run_items = mysqli_query($con, $get_items);
 		$rowItems = mysqli_fetch_array($run_items); 
@@ -82,7 +89,7 @@ function total_items(){
 			
 		$ip = getIp();
 		
-		$get_items = "select SUM(qty) AS TotalItemsOrdered, customer_id from cart where customer_id='$ip'";
+		$get_items = "SELECT SUM(qty) AS TotalItemsOrdered, customer_id FROM cart WHERE customer_id='$id' OR ip='$ip'";
 		
 		$run_items = mysqli_query($con, $get_items);
 		$rowItems = mysqli_fetch_array($run_items); 
@@ -96,13 +103,16 @@ function total_items(){
 //getting the total price of the items in the cart
 
 function total_price(){
-	
+	$id = "";
+	if (isset($_SESSION['customer_email'])) {
+		$id = $_SESSION['user_id'];
+	}
 	$total = 0;
 	
 	global $con;
 	
 	$ip = getIp();
-	$sel_price = "SELECT p_id, qty FROM cart WHERE customer_id='$ip'";
+	$sel_price = "SELECT p_id, qty FROM cart WHERE customer_id='$id' OR ip='$ip'";
 	$run_price = mysqli_query($con, $sel_price);
 	
 	while($p_price=mysqli_fetch_array($run_price)){

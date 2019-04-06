@@ -18,66 +18,10 @@ include ("functions/functions.php");
 
 <body>
 
-
-<!--Header starts here-->
-	<div class="header_wrapper">
-	<div class="header">
-		<div class="logo">
-		<h1><span>Blaise</span>Mnl</h1>
-		</div>
-	<!--Menubar starts here-->
-		<div class="menu_wrapper">
-		<div class="menubar">
-			<ul id="menu">		
-				<li class="current_list_item"><a class="home" href="index.php" >Home</a></li>
-				<li><a href="AboutUs.php" >About Us</a></li>
-				<li><a href="all_products.php">All Products</a></li>
-				<li><a href="register.php">Register</a></li>
-			</ul>
-
-			<div id="form" class="search_form">
-				<form method="get" action="results.php" enctype="multipart/form-data">
-				<input type="text" class="searchfrm" name="user_query" placeholder="Search for a product"/>
-				<input  type="submit" class="searchbtn" name="search" value="Search" />
-				</form>
-			</div>
-		</div>
-		</div>
-	<!--Menubar ends here-->
-	</div>	
-	</div>
-<!--Header ends here-->
-
-<!--Main Container starts here!-->
-	<div class="main_wrapper">
-		<div class="login_details">
-				<?php 
-					if(isset($_SESSION['customer_email'])){
-					echo "<b>Welcome: </b>" . $_SESSION['customer_email'] ;
-					echo "<span class='my_account'><a href='my_account.php'> My Account </a></span>";
-					}
-					else {
-					echo "<b>Welcome Guest: </b>";
-					}
-					?>	<?php 
-
-					if(!isset($_SESSION['customer_email'])){
-			
-					echo "<a href='login.php' style='color:yellow;'>Login</a>";}
-		
-					else{
-						echo "<a href='logout.php' style='color:yellow;'>- Logout</a>";
-					}?>	
-			</div>
-		<div class="shopping_cart">		
-		
-		<div class="shopping_details">
-		<a href="cart.php"><img class="imagedropshadow" id="imgcart" src="images/cartpink.png"></a>
-		<span class="item_details"><b style="color:yellow">Shopping Cart</b> - Total Items: <?php total_items(); ?> Total Price: <?php total_price(); ?>  </span>
-		</div>		
-		</div>
-		
-
+<?php 
+	include("includes/header.php");
+	include("includes/cartpanel.php");
+?>
 <!--Content starts here-->
 	<div class="content_wrapper">
 		<div id="content_area">

@@ -50,7 +50,7 @@ include ("functions/functions.php");
 		
 				<form action="" method="post" enctype="multipart/form-data">
 			
-			<table align="center" width="750">
+			<table align="center" width="100%">
 				
 				
 				
@@ -70,8 +70,11 @@ include ("functions/functions.php");
 	global $con;
 	
 	$ip = getIP();
-	
-	$sel_price = "select * from cart where customer_id='$ip'";
+	$id = "";
+	if (isset($_SESSION['customer_email'])) {
+		$id = $_SESSION['user_id'];
+	}
+	$sel_price = "SELECT * FROM cart WHERE customer_id='$id' OR ip='$ip' ";
 	
 	$run_price = mysqli_query($con, $sel_price);
 	
@@ -81,7 +84,7 @@ include ("functions/functions.php");
 				
 		$pro_qty = $p_price['qty'];
 				
-		$pro_price = "select * from products where prod_id = '$pro_id'";
+		$pro_price = "SELECT * FROM products WHERE prod_id = '$pro_id'";
 		
 		$run_pro_price = mysqli_query($con,$pro_price);
 		
@@ -123,17 +126,16 @@ include ("functions/functions.php");
 							
 							foreach ($_POST['item_id'] as $key => $id) {
 								$quantity = $_POST['qty'][$key];	
-                                if ($quantity < $product_qty) {
+                                if ($quantity <= $product_qty) {
 									$item_id = $id;
-																	
+												
 									$update_products = "UPDATE cart SET qty = '$quantity' WHERE p_id = '$item_id';";
 									
 									$run_update = mysqli_query($con, $update_products);
 									echo "<script>window.open('cart.php','_self')</script>";
 								}
 								else {
-									echo "<script>window.open('cart.php','_self')</script>";
-									echo "<h1><b>Run out of stocks</b></h1>";
+								echo "<script>alert('Cannot Process order, we only have $product_qty on stock! ')</script>";
 								}
 																
 							}
@@ -174,7 +176,7 @@ include ("functions/functions.php");
 		
 			foreach($_POST['remove'] as $remove_id){
 			
-			$delete_product = "delete from cart where p_id='$remove_id' AND customer_id='$ip'";
+			$delete_product = "DELETE FROM cart WHERE p_id='$remove_id' AND ip='$ip'";
 			
 			$run_delete = mysqli_query($con, $delete_product); 
 			
