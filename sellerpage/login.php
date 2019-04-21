@@ -87,24 +87,23 @@ include("includes/db.php");
 		$email = mysqli_real_escape_string($con, $_POST['email']);
 		$pass = mysqli_real_escape_string($con, $_POST['password']);
 	
-	$sel_user = "SELECT * FROM staff WHERE staff_email='$email' AND staff_pass='$pass'";
-	
-	$run_user = mysqli_query($con, $sel_user); 
-	
-	$check_user = mysqli_num_rows($run_user); 
-	
-	if($check_user==1){
-		echo $check_user["staff_email"];
+		$sel_seller = "SELECT * FROM staff WHERE staff_email='$email' AND staff_pass='$pass'";
+		$result = $con->query($sel_seller);
 		
-		$_SESSION['user_email'] = $email;
-		echo "<script>window.open('index.php?dashboard=You have successfully Logged in!','_self')</script>";
-	
-	}
-	else {
-	
-	echo "<script>alert('Password or Email is wrong, try again!')</script>";
-	
-	}
+		if ($result->num_rows > 0) {
+			while ($row = $result->fetch_assoc()) {
+				$_SESSION['seller_email'] = $row['staff_email'];
+				$_SESSION["seller_id"] = $row['staff_id'];
+				$_SESSION['company_code'] = $row['CompanyCode'];
+				
+				echo "<script>window.open('index.php?dashboard','_self')</script>";							
+							
+			}
+		}
+		else {
+			echo "<script>alert('Password or email is incorrect, please try again!')</script>";
+			return true;
+		}
 	
 	
 	}

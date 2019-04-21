@@ -2,12 +2,12 @@
 include("includes/db.php"); 
 session_start(); 
 
-if(!isset($_SESSION['user_email'])){
+if(!isset($_SESSION['seller_email'])){
 	
 	echo "<script>window.open('login.php?not_admin=You are not an Admin!','_self')</script>";
 }
 else {
-	$email = $_SESSION['user_email'];
+	$email = $_SESSION['seller_email'];
 
 if(isset($_GET['d_pro'])){
 	
@@ -111,15 +111,18 @@ tt=display_c();
 	
 	$run_user = mysqli_query($con, $sel_user); 
 	
-	 $check_user = mysqli_num_rows($run_user); 
+	$check_user = mysqli_num_rows($run_user); 
 	
 	if($check_user==1){
 		
 	
 
 	
-	$delete_pro = "Update orders SET status = 'Paid', date_paid = CURDATE() where receipt_id='$delete_id'"; 
-	$run_delete = mysqli_query($con, $delete_pro); 
+		$delete_pro = "UPDATE order_receipt SET `Status` = 'Paid' WHERE receipt_id='$delete_id'"; 
+		$run_delete = mysqli_query($con, $delete_pro); 
+
+		$insertSales = "INSERT INTO sales (receipt) VALUES ($delete_id)";
+		$execute = mysqli_query($con, $insertSales);
 
 	if($run_delete){
 		

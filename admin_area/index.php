@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include ("includes/db.php");
 if(!isset($_SESSION['user_email'])){
 
 	echo "<script>window.open('login.php?not_admin=You are not an Admin!','_self')</script>";
@@ -45,6 +45,10 @@ document.getElementById('ct').innerHTML = x1;
 
 tt=display_c();
 }
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
 </script>
 
@@ -77,9 +81,9 @@ tt=display_c();
 		include("insert_product.php");
 
 		}
-		if(isset($_GET['view_products'])){
+		if(isset($_GET['view_seller'])){
 
-		include("view_products.php");
+		include("view_seller.php");
 
 		}
 		if(isset($_GET['edit_pro'])){
@@ -94,26 +98,30 @@ tt=display_c();
 		}
 
 		if(isset($_GET['view_cats'])){
-
-		include("view_cats.php");
-
+			include("view_cats.php");
+		}
+		
+		if (isset($_GET['view_company'])) {
+			include("view_company.php");
 		}
 
 		if(isset($_GET['edit_cat'])){
 
-		include("edit_cat.php");
+			include("edit_cat.php");
 
 		}
 
 		if(isset($_GET['view_customers'])){
 
-		include("view_customers.php");
+			include("view_customers.php");
 
 		}
-		if(isset($_GET['insert_staff'])){
+		if(isset($_GET['insert_seller'])){
+			include("insert_seller.php");
+		}
 
-		include("insert_staff.php");
-
+		if (isset($_GET['insert_company'])) {
+			include("insert_company.php");
 		}
 
 		if(isset($_GET['login_log'])){
@@ -259,10 +267,12 @@ tt=display_c();
 		<br><hr></center>
 		<h2 style="text-align:center;">Manage Content</h2>
 			<a href="index.php?view_customers">View Customers</a>
-			<a href="index.php?view_products">View Seller</a>
+			<a href="index.php?view_seller">View Seller</a>
 			<a href="index.php?view_cats" class="opt">View All Categories</a>
 			<a href="index.php?insert_cat" class="opt">Insert New Category</a>
-			<a href="index.php?insert_staff">Add Seller</a>
+			<a href="index.php?insert_company">New Company</a>
+			<a href="index.php?view_company">View Company</a>
+			<a href="index.php?insert_seller">Add Seller</a>
 			<a href="logout.php">Logout</a>
 		</div>		
 	

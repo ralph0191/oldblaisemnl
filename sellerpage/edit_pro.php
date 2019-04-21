@@ -59,28 +59,21 @@ if(isset($_GET['edit_pro'])){
 			<tr>
 				<td align="right"><b>Product Category:</b></td>
 				<td>
-				<select name="prod_cat" >
-					<option disabled="disabled" selected="selected" required>Select category</option>
+				<select  name="prod_cat" >
+					<option disabled="disabled" selected="selected"  required>Select category</option>
 					<?php 
-		$get_cats = "select * from categories";
-	
-		$run_cats = mysqli_query($con, $get_cats);
-	
-		while ($row_cats=mysqli_fetch_array($run_cats)){
-	
-		$cat_id = $row_cats['cat_id']; 
-		$cat_title = $row_cats['cat_title'];
-	
-		echo "<option value='$cat_id'>$cat_title</option>";
-	
-
-		}
-	
+						$get_cats = "SELECT * FROM categories";
 					
+						$run_cats = mysqli_query($con, $get_cats);
+					
+						while ($row_cats=mysqli_fetch_array($run_cats)){
+					
+							$cat_id = $row_cats['cat_id']; 
+							$cat_title = $row_cats['cat_title'];
+							echo "<option value='$cat_id'>$cat_title</option>";
+						}
 					?>
 				</select>
-				
-				
 				</td>
 			</tr>
 			
@@ -88,18 +81,14 @@ if(isset($_GET['edit_pro'])){
 				<td align="right"><b>Product Image:</b></td>
 				<td><input type="file" name="prod_image" /><img src="../admin_area/product_images/<?php echo $pro_image; ?>" width="60" height="60"/></td>
 			</tr>
-			
 			<tr>
 		<td align="right"><b>Product Quantity:</b></td>
 		<td><input type="text" name="prod_qty" value="<?php echo $pro_qty;?>" required/></td>
 	</tr>
-			
 			<tr>
 				<td align="right"><b>Product Price:</b></td>
 				<td><input type="text" name="prod_price" value="<?php echo $pro_price;?>"/></td>
-			</tr>
-			
-			
+			</tr>	
 			<tr align="center">
 				<td colspan="7"><input type="submit" name="update_product" value="Update Product"/></td>
 			</tr>
@@ -128,20 +117,14 @@ if(isset($_GET['edit_pro'])){
 		//getting the image from the field
 		$product_image = $_FILES['prod_image']['name'];
 		$product_image_tmp = $_FILES['prod_image']['tmp_name'];
-		
 		move_uploaded_file($product_image_tmp,"../admin_area/product_images/$product_image");
-	
-		 $update_product = "update products set prod_cat='$product_cat',prod_title='$product_title',prod_qty='$product_qty',prod_price='$product_price',prod_image='$product_image' where prod_id='$update_id'";
+		$update_product = "UPDATE products SET prod_cat='$product_cat',prod_title='$product_title',prod_qty='$product_qty',prod_price='$product_price',prod_image='$product_image' where prod_id='$update_id'";
+		$run_product = mysqli_query($con, $update_product);
 		 
-		 $run_product = mysqli_query($con, $update_product);
-		 
-		 if($run_product){
-		 
-		 echo "<script>alert('Product has been updated!')</script>";
-		 
-		 echo "<script>window.open('index.php?view_products','_self')</script>";
-		 
-		 }
+		if($run_product){ 
+			echo "<script>alert('Product has been updated!')</script>";
+			echo "<script>window.open('index.php?view_products','_self')</script>";
+		}
 	}
 
 

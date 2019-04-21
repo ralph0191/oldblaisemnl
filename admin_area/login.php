@@ -88,7 +88,7 @@ include("includes/db.php");
 		$email = mysqli_real_escape_string($con, $_POST['email']);
 		$pass = mysqli_real_escape_string($con, $_POST['password']);
 	
-	$sel_user = "select * from admins where user_email='$email' AND user_pass='$pass'";
+	$sel_user = "SELECT * FROM admins WHERE user_email='$email' AND user_pass='$pass'";
 	
 	$run_user = mysqli_query($con, $sel_user); 
 	

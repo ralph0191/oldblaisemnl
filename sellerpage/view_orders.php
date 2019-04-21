@@ -1,13 +1,13 @@
 <?php
- 
-$sql = "SELECT
-orders.orderid, products.prod_title, orders.qty, products.prod_image, 
-orders.status, orders.order_date, orders.customer
-FROM 
-orders 
-LEFT JOIN
-	products 	ON    products.prod_id = orders.pro_id
-ORDER BY orders.order_date DESC";
+$companyCode = $_SESSION['company_code'];
+$sql = "SELECT 
+            order_receipt.receipt_id, order_receipt.datepurchase, order_receipt.Status
+        FROM 
+            order_receipt
+        LEFT JOIN 
+            orders ON orders.receipt_id = order_receipt.receipt_id
+        LEFT JOIN
+            products ON products.prod_id = orders.pro_id AND products.prod_company = '$companyCode'";
 $result = $con->query($sql);
 $order_users = [];
 if ($result->num_rows > 0) {
@@ -27,31 +27,24 @@ if ($result->num_rows > 0) {
 <body>
     <div class="container mt-5">
         <table id="usetTable" class="table">
-        <thead>
-            <th>Order ID</th>
-            <th>Product (S)</th>
-            <th>Quantity</th>
-            <th>Product Image</th>
-			<th>Customer</th>
-            <th>Order Date</th>
-            <th>Status</th>
-	    </thead>
-	    <tbody>
-            <?php if(!empty($order_users)) { ?>
-                <?php foreach($order_users as $order) { ?>
-                    <tr>
-                        <td><?php echo $order['orderid']; ?></td>
-                        <td><?php echo $order['prod_title']; ?></td>
-                        <td><?php echo $order['qty']; ?></td>
-                        <td><img src="../admin_area/product_images/<?php echo $order['prod_image']; ?>" height="50px" width="50px"></td>
-                        <td><?php echo $order['customer'] ?></td>
-						<td><?php echo $order['status']; ?></td>
-                        <td><?php echo $order['order_date']; ?></td>
-                    </tr>
+            <h3 style="text-align:center;">View Orders</h3>
+            <thead>
+                <th>Tracking ID</th>
+                <th>Order Date</th>
+                <th>Status</th>
+            </thead>
+            <tbody>
+                <?php if(!empty($order_users)) { ?>
+                    <?php foreach($order_users as $order) { ?>
+                        <tr>
+                            <td><?php echo $order['receipt_id']; ?></td>
+                            <td><?php echo $order['datepurchase']; ?></td>
+                            <td><?php echo $order['Status']; ?></td>
+                        </tr>
+                    <?php } ?>
                 <?php } ?>
-            <?php } ?>
-    	</tbody>
-    </table>
+            </tbody>
+        </table>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>

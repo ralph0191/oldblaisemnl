@@ -1,14 +1,16 @@
 <?php
-$sql = "SELECT
-orders.orderid, products.prod_title, orders.qty, products.prod_image,
-orders.status, orders.order_date, orders.customer, orders.customer_contact,
-orders.customer_address
-FROM 
-orders 
-LEFT JOIN
-	products 	ON    products.prod_id = orders.pro_id
-WHERE
-	orders.status = 'Pending'";
+$sql = "SELECT 
+            order_receipt.receipt_id, order_receipt.datepurchase, order_receipt.Status
+        FROM 
+            order_receipt
+        LEFT JOIN 
+            orders ON orders.receipt_id = order_receipt.receipt_id
+        LEFT JOIN
+            products ON products.prod_id = orders.pro_id AND products.prod_company = '$companyCode'
+        WHERE
+            order_receipt.Status = 'Pending'
+        GROUP BY
+            receipt_id";
 $result = $con->query($sql);
 $order_users = [];
 if ($result->num_rows > 0) {
@@ -27,36 +29,23 @@ if ($result->num_rows > 0) {
 </head>
 <body>
     <div class="container mt-5">
+        <h3 style="text-align:center;">Recieve Orders</h3>
         <table id="usetTable" class="table">
-        <thead>
-            <th>Order ID</th>
-            <th>Product (S)</th>
-            <th>Quantity</th>
-            <th>Product Image</th>
+        <thead align="center">
+            <th>Tracking ID</th>
             <th>Order Date</th>
-			<th>Customer</th>
-			<th>Customer Address</th>
-			<th>Customer Contact</th> 
             <th>Status</th>
-			<th>Receive Order</th>
+            <th>Receive Order<th>
 	    </thead>
-	    <tbody>
+	    <tbody align="center">
             <?php if(!empty($order_users)) { ?>
                 <?php foreach($order_users as $order) { ?>
                     <tr>
-                        <td><?php echo $order['orderid']; ?></td>
-                        <td><?php echo $order['prod_title']; ?></td>
-                        <td><?php echo $order['qty']; ?></td>
-                        <td>
-							<img src="../admin_area/product_images/<?php echo $order['prod_image']; ?>">
-						</td>
-                        <td><?php echo $order['order_date']; ?></td>
-						<td><?php echo $order['customer']; ?></td>
-						<td><?php echo $order['customer_address']; ?></td>
-						<td><?php echo $order['customer_contact']; ?></td>
-						<td><?php echo $order['status']; ?></td>
+                        <td><?php echo $order['receipt_id']; ?></td>
+                        <td><?php echo $order['datepurchase']; ?></td>
+                        <td><?php echo $order['Status']; ?></td>
 						<td>
-							<a href="r.php?r_pro=<?php echo $receipt;?>">
+							<a href="index.php?r_pro=<?php echo $order['receipt_id'];?>">
 								<img src="done.png" width="50" height="50">
 							</a>
 						</td>
