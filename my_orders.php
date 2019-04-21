@@ -13,21 +13,27 @@
 <h1>MY ORDERS</h1>
 <br/>
 <table align="center" id="usetTable" class="table"> 
-	<thead>
+	<thead align="center">
 		<th>tracking ID</th>
 		<th>Order Date</th>
 		<th>Status</th>
 		<th>Action</th>
 	</thead>
-	<tbody>
+	<tbody align="center">
 		<?php if(!empty($order_users)) { ?>
 			<?php foreach($order_users as $order) { ?>
 				<tr>
-					<td><a href="orderdetails.php?orderNo=<?php echo $order['receipt_id']; ?>"><?php echo $order['receipt_id']; ?></a></td>
-					<td><?php echo $order['datepurchase']; ?></td>
+					<td><a style="color:blue;" href="orderdetails.php?orderNo=<?php echo $order['receipt_id']; ?>"><?php echo $order['receipt_id']; ?></a></td>
+					<td><?php echo $order['datepurchase']; ?></td> 
 					<td><?php echo $order['Status']; ?></td>
-					
-					<<td><a class="btn btn-danger" href="orderdetails.php?orderNo=<?php echo $order['receipt_id']; ?>">Delete</a></td>
+					<?php 
+						if ($order['Status'] === "Pending") {
+					 		echo "<td><a class='btn btn-danger' href='orderdetails.php?orderNo=" . $order['receipt_id']."'>Delete Order</a></td>";
+						}
+						else {
+							echo "<td><a class='btn btn-success'  href='orderdetails.php?orderNo=" . $order['receipt_id']."'>View Order</a></td>";
+						}
+					?>
 				</tr>
 			<?php } ?>
 		<?php } ?>

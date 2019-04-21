@@ -2,7 +2,7 @@
     include("includes/db.php");
     session_start(); 
 
-if(!isset($_SESSION['user_email'])){
+if(!isset($_SESSION['seller_email'])){
 	
 	echo "<script>window.open('login.php?not_admin=You are not an Admin!','_self')</script>";
 } else {
@@ -152,6 +152,16 @@ if(!isset($_SESSION['user_email'])){
 		include("October.php"); 
 		
 		}
+		if(isset($_GET['del_pro'])) {
+			include("delete_pro.php");
+		}
+		if(isset($_GET['r_pro'])) {
+			include("r.php");
+		}
+		
+		if(isset($_GET['d_pro'])) {
+			include("d.php");
+		}
 		if(isset($_GET['November'])){
 		
 		include("November.php"); 
@@ -188,10 +198,18 @@ if(!isset($_SESSION['user_email'])){
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+		
+	<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#usetTable').DataTable();
+        } );
+	</script>
+	<script>
+        $(document).ready(function() {
+            $('#usetTable2').DataTable();
         } );
     </script>
 	<script type="text/javascript">

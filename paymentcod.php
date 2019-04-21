@@ -61,7 +61,6 @@ include ("functions/functions.php");
 			$ccity = $s['customer_city'];
 			$caddress=$s['customer_address'];
 			$contact = $s['customer_contact'];
-			$_SESSION = $contact;
 			}
 	}
 			
@@ -69,7 +68,7 @@ if (isset($_POST['update'])){
 	$ip = getIp();
 	$id = "";
 	if (isset($_SESSION['customer_email'])) {
-		$id = $_SESSION['user_id'];
+		$id = $_SESSION['customer_id'];
 	}
 	$get_qty = "SELECT * FROM cart WHERE customer_id = '$id' OR ip='$ip'";			
 	$run_qty = mysqli_query($con, $get_qty);	
@@ -98,8 +97,8 @@ if (isset($_POST['update'])){
 		$prodQty = $rows['qty'];
 		$customer = $rows['customer_id'];
 
-		$insertOrderSQL = "INSERT INTO `orders` (`receipt_id`, `qty`, `pro_id`, `order_date`, `CustomerID`, `Status`, `recieved_by`) 
-		VALUES ($receiptMax, $prodQty, $prodId, CURDATE(), $customer, 'Pending', 'None')";
+		$insertOrderSQL = "INSERT INTO `orders` (`receipt_id`, `qty`, `pro_id`, `CustomerID`) 
+		VALUES ($receiptMax, $prodQty, $prodId, $customer)";
 		$runInsertSQL = mysqli_query($con, $insertOrderSQL) or die(mysqli_error($con));
 		$reduceProductSQL = "UPDATE products SET prod_qty = prod_qty - '$prodQty' WHERE prod_id = '$prodId'";
 		$runReduceSQL = mysqli_query($con, $reduceProductSQL) or die(mysqli_error($con));
@@ -156,16 +155,16 @@ if (isset($_POST['update'])){
 	<form method="post" action=""> 						
 	<tr>
 		<td align="center">Customer Name:</td>
-		<td><input type='text' name='name' placeholder='Name' value="<?php echo $cname; ?>" required/></td>
+		<td><input disabled type='text' name='name' placeholder='Name' value="<?php echo $cname; ?>" required/></td>
 	</tr>
 	<tr>
 		<td align="center"> Address:</td>
-		<td><input type='text' name='address' placeholder='Name' value="<?php echo $caddress; ?>" required/></td>
+		<td><input disabled type='text' name='address' placeholder='Name' value="<?php echo $caddress; ?>" required/></td>
 	</tr>
 	
 	<tr>
 		<td align="center">City:</td>
-		<td><input type='text' name='city' placeholder='Name' value="<?php echo $ccity; ?>" required/></td>
+		<td><input disabled type='text' name='city' placeholder='Name' value="<?php echo $ccity; ?>" required/></td>
 	</tr>
 	<tr>
 		<td align="center">Country:</td>
@@ -175,7 +174,7 @@ if (isset($_POST['update'])){
 	</tr>
 	<tr>
 		<td align="center"> Contact Number:	</td>
-		<td><input type='text' name='contact' placeholder='Name' value="<?php echo $contact; ?>" required/></td>
+		<td><input type='text' disabled name='contact' placeholder='Name' value="<?php echo $contact; ?>" required/></td>
 	</tr>
 </table>
 <br>	

@@ -2,12 +2,12 @@
 include("includes/db.php"); 
 session_start(); 
 
-if(!isset($_SESSION['user_email'])){
+if(!isset($_SESSION['seller_email'])){
 	
 	echo "<script>window.open('login.php?not_admin=You are not an Admin!','_self')</script>";
 }
 else {
-	$email = $_SESSION['user_email'];
+	$email = $_SESSION['seller_email'];
 
 if(isset($_GET['r_pro'])){
 	
@@ -107,23 +107,20 @@ tt=display_c();
 	$pass = mysqli_real_escape_string($con, $_POST['password']);
 	
 	
-	$sel_user = "select * from staff where staff_email='$email' AND staff_pass='$pass'";
+	$sel_user = "SELECT * FROM staff where staff_email='$email' AND staff_pass='$pass'";
 	
 	$run_user = mysqli_query($con, $sel_user); 
 	
-	 $check_user = mysqli_num_rows($run_user); 
+	$check_user = mysqli_num_rows($run_user); 
 	
-	if($check_user==1){
+	if($check_user>0){
 		
-	$delete_pro = "UPDATE orders SET status = 'In Transit', recieved_by = '$email' WHERE receipt_id='$delete_id'"; 
+	$delete_pro = "UPDATE order_receipt SET `Status` = 'In Transit', RecieveBy = '$email' WHERE receipt_id='$delete_id'"; 
 	$run_delete = mysqli_query($con, $delete_pro); 
 
 	if($run_delete){
-		
-	
-	
-	echo "<script>alert('The product has been recieved!')</script>";
-	echo "<script>window.open('index.php?orders','_self')</script>";
+		echo "<script>alert('The product has been recieved!')</script>";
+		echo "<script>window.open('index.php?orders','_self')</script>";
 }
 else{
 	

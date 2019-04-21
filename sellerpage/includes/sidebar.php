@@ -26,6 +26,10 @@
         <li>
             <a href="index.php?done" class="opt">Confirm Transanction</a>
         </li>
+        
+        <li>
+            <a href="index.php?#" class="opt">Return</a>
+        </li>
         <li>
             <a href="index.php?phaseout" class="opt">Phaseouts</a>
         </li>

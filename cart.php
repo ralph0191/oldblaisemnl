@@ -72,7 +72,7 @@ include ("functions/functions.php");
 	$ip = getIP();
 	$id = "";
 	if (isset($_SESSION['customer_email'])) {
-		$id = $_SESSION['user_id'];
+		$id = $_SESSION['customer_id'];
 	}
 	$sel_price = "SELECT * FROM cart WHERE customer_id='$id' OR ip='$ip' ";
 	

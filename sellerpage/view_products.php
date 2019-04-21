@@ -1,9 +1,15 @@
 <?php
- 
+
+$companyCode = $_SESSION['company_code'];
 $sql = "SELECT
-prod_id, prod_title, prod_image, prod_price, prod_qty, dateentered, prod_cat
-FROM 
-products";
+            prod_id, prod_title, prod_image, prod_price, prod_qty, dateentered, categories.cat_title AS category
+        FROM 
+            products
+        LEFT JOIN 
+            categories ON categories.cat_id = products.prod_cat AND prod_company = '$companyCode'
+        WHERE
+        prod_status = 1";
+
 $result = $con->query($sql);
 $order_users = [];
 if ($result->num_rows > 0) {
@@ -22,14 +28,15 @@ if ($result->num_rows > 0) {
 </head>
 <body>
     <div class="container mt-5">
-        <table id="usetTable" class="table" style="text-align: center; align: center;">
+        <h3 style="text-align:center;">Products</h3>
+        <table id="usetTable" class="table">
         <thead>
-            <th>Product ID</th>
             <th>Product Title</th>
+            <th>Product Price</th>
             <th>Quantity</th>
             <th>Product Image</th>
-						<th>Edit</th>
-						<th>Delete</th>
+            <th>Edit</th>
+            <th>Delete</th>
             <th>Release Date</th>
             <th>Category</th>
 	    </thead>
@@ -37,39 +44,16 @@ if ($result->num_rows > 0) {
             <?php if(!empty($order_users)) { ?>
                 <?php foreach($order_users as $order) { ?>
                     <tr>
-                        <td><?php echo $order['prod_id']; ?></td>
                         <td><?php echo $order['prod_title']; ?></td>
+                        <td><?php echo $order['prod_price']; ?></td>
                         <td><?php echo $order['prod_qty']; ?></td>
                         <td><img src="../admin_area/product_images/<?php echo $order['prod_image']; ?>" height="50px" width="50px"></td>
-                        <td><a href="index.php?edit_pro=<?php echo $pro_id; ?>">
+                        <td><a href="index.php?edit_pro=<?php echo $order['prod_id']; ?>">
                             <img src="edit-icon.png" width="50" height="50"></a></td>
-                        <td><a href="index.php?del_pro=<?php echo $pro_id; ?>">
+                        <td><a href="index.php?del_pro=<?php echo $order['prod_id']; ?>">
                             <img src="del-icon.png" width="50" height="50"></a></td>
                         <td><?php echo $order['dateentered']; ?></td>
-                        <td>
-													<?php 
-													if ($order['prod_cat'] == "1") {
-														$category_string = "K-Beauty";
-													}
-													else if ($order['prod_cat'] == "2") {
-														$category_string = "Food";
-													}
-													else if ($order['prod_cat'] == "3") {
-														$category_string = "Furniture";
-													}
-													else if ($order['prod_cat'] == "4") {
-														$category_string = "Makeup";
-													}
-													else if ($order['prod_cat'] == "5") {
-														$category_string = "Skincare";
-													}
-													else {
-														$category_string = "ETC";
-													}
-
-													echo $category_string;
-													?>
-												</td>
+                        <td><?php echo $order['category']; ?></td>
                     </tr>
                 <?php } ?>
             <?php } ?>

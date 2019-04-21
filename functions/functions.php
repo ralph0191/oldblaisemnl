@@ -29,10 +29,8 @@ function getIp() {
 
 
 function cart(){
-	
-	
-		
-	if (isset($_GET['add_cart'])){
+
+	if (isset($_GET['add_cart'])) {
 
 		global $con;
 		
@@ -40,8 +38,9 @@ function cart(){
 		
 		$pro_id = $_GET['add_cart'];
 		$id = "";
+		
 		if (isset($_SESSION['customer_email'])) {
-			$id = $_SESSION['user_id'];
+			$id = $_SESSION['customer_id'];
 		}
 		$check_pro = "SELECT * FROM cart WHERE customer_id='$ip' AND p_id='$pro_id'";		
 		$run_check = mysqli_query($con, $check_pro);
@@ -49,10 +48,13 @@ function cart(){
 		if(mysqli_num_rows($run_check)>0){
 			echo "<script>alert('Product has already been added!')</script>";
 		}
-		else {
-			
-			$insert_pro = "INSERT INTO cart (p_id,ip,customer_id,qty) VALUES ('$pro_id','$ip', '$id',+1)";
-			
+		else { 
+			if (isset($_SESSION['customer_email'])) {
+				$insert_pro = "INSERT INTO cart (p_id,ip,customer_id,qty) VALUES ('$pro_id','$ip', '$id',+1)";
+			}
+			else {
+				$insert_pro = "INSERT INTO cart (p_id,ip,customer_id,qty) VALUES ('$pro_id','$ip', '',+1)";	
+			}
 			$run_pro = mysqli_query($con, $insert_pro);
 			
 			echo "<script>window.open('cart.php','_self')</script>";
@@ -67,7 +69,7 @@ function cart(){
 function total_items(){
 	$id = "";
 		if (isset($_SESSION['customer_email'])) {
-			$id = $_SESSION['user_id'];
+			$id = $_SESSION['customer_id'];
 		}
 	if(isset($_GET['add_cart'])){
 		
@@ -105,7 +107,7 @@ function total_items(){
 function total_price(){
 	$id = "";
 	if (isset($_SESSION['customer_email'])) {
-		$id = $_SESSION['user_id'];
+		$id = $_SESSION['customer_id'];
 	}
 	$total = 0;
 	

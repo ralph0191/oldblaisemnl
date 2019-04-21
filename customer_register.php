@@ -161,7 +161,7 @@ function runBGSlideShow(){
 		return true;
 		}
 	
-		$check_email = "select * from customers where customer_email='$c_email'";
+		$check_email = "SELECT  * FROM customers WHERE customer_email='$c_email'";
 		$run = mysqli_query($con,$check_email);
 		if(mysqli_num_rows($run)>0){
 		
@@ -170,17 +170,33 @@ function runBGSlideShow(){
 			return true;		
 		}
 		
+		$customerEmail = "";
+		$customerName = "";
+		$customerContact = "";
+		$customerAddress = "";
+		$customerID = "";
 		
 		move_uploaded_file($c_image_tmp,"customer/customer_images/$c_image");
-		$insert_c = "insert into customers (customer_ip,customer_name,customer_email,customer_pass,customer_country,customer_city,customer_contact,customer_address,customer_image) values ('$ip','$c_name','$c_email','$c_pass','$c_country','$c_city','$c_contact','$c_address','$c_image')";
+		$insert_c = "INSERT INTO customers (customer_ip,customer_name,customer_email, customer_pass,customer_country,customer_city,customer_contact,customer_address,customer_image) values ('$ip','$c_name','$c_email','$c_pass','$c_country','$c_city','$c_contact','$c_address','$c_image')";
 		$run_c = mysqli_query($con, $insert_c);
-		$sel_cart = "select * from cart where ip_add='$ip'";
+		$selectLastInsert = "SELECT * FROM ecommerce.customers ORDER BY customer_id DESC LIMIT 1";
+		$runLastInsert = $con->query($selectLastInsert)  or die($conn->error);
+                
+		while ($rows = $runLastInsert->fetch_assoc()) {
+			$customerEmail = $rows['customer_email'];
+			$customerName = $rows['customer_name'];
+			$customerContact = $rows['customer_contact'];
+			$customerAddress = $rows['customer_address'];
+			$customerID = $rows['customer_id'];
+		}
+		$sel_cart = "SELECT * FROM cart WHERE ip_add='$ip'";
 		$run_cart = mysqli_query($con, $sel_cart); 
 		$check_cart = mysqli_num_rows($run_cart); 
 		if($check_cart==0){
 		
-			$_SESSION['customer_email']=$c_email;
-			
+			$_SESSION['customer_email']= $customerEmail;
+			$_SESSION['customer_id'] = $customerID;
+			$_SESSION['customer_name'] = $customerName;
 			echo "<script>alert('Account has been created successfully, Thanks!')</script>";
 			echo "<script>window.open('my_account.php','_self')</script>";
 			
@@ -195,12 +211,12 @@ function runBGSlideShow(){
 		
 		}
 		else {
-		
-		$_SESSION['customer_email'] = $c_email; 
-		$_SESSION['customer_name']  = $c_name;
-		echo "<script>alert('Account has been created successfully, Thanks!')</script>";
-		
-		echo "<script>window.open('checkout.php','_self')</script>";
+			$_SESSION['customer_email']= $customerEmail;
+			$_SESSION['customer_id'] = $customerID;
+				
+			echo "<script>alert('Account has been created successfully, Thanks!')</script>";
+			
+			echo "<script>window.open('checkout.php','_self')</script>";
 		}
 	}
 ?>

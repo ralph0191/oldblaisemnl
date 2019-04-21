@@ -1,51 +1,48 @@
 <?php 
-
-
-if(!isset($_SESSION['user_email'])){
-	
-	echo "<script>window.open('login.php?not_admin=You are not an Admin!','_self')</script>";
-}
-else {
-	$email = $_SESSION['user_email'];
-	$sql = "SELECT 
-		orderid, qty, receipt_id, order_date, customer, Status, products.prod_image AS image, products.prod_title AS product_name
-	FROM 
-		orders
-	LEFT JOIN 
-		products ON products.prod_id = orders.pro_id
-	WHERE
-		orders.status = 'In Transit'";	
-
-	$result = $con->query($sql);
-	$order_users = [];
-	if ($result->num_rows > 0) {
-		$order_users = $result->fetch_all(MYSQLI_ASSOC);
+	if(!isset($_SESSION['seller_email'])){
+		
+		echo "<script>window.open('login.php?not_admin=You are not an Admin!','_self')</script>";
 	}
+	else {
+		$email = $_SESSION['seller_email'];
+		$sql = "SELECT 
+					order_receipt.receipt_id, order_receipt.datepurchase, order_receipt.Status
+				FROM 
+					order_receipt
+				LEFT JOIN 
+					orders ON orders.receipt_id = order_receipt.receipt_id
+				LEFT JOIN
+					products ON products.prod_id = orders.pro_id AND products.prod_company = '$companyCode'
+				WHERE
+					order_receipt.Status = 'In Transit'
+				GROUP BY
+					receipt_id";
+		$result = $con->query($sql);
+		$order_users = [];
+		if ($result->num_rows > 0) {
+			$order_users = $result->fetch_all(MYSQLI_ASSOC);
+		}
 ?>
-<table style="text-align: center; align: center;" id="usetTable" class="table">
+<table style="text-align:center;" id="usetTable" class="table">
+	<h3 style="text-align:center;">Confirm Transactions</h3>
         <thead>
-            <th>Order ID</th>
-            <th>Product (S)</th>
-            <th>Quantity</th>
-            <th>Product Image</th>
-            <th>Order Date</th>
-            <th>Customer</th>
-            <th>Status</th>
-            <th>Receive Order</th>
+			<th>Tracking ID</th>
+			<th>Order Date</th>
+			<th>Status</th>
+			<th>Finish Transaction<th>
 	    </thead>
 	    <tbody>
             <?php if(!empty($order_users)) { ?>
                 <?php foreach($order_users as $order) { ?>
                     <tr>
-                    <td><?php echo $order['orderid']; ?></td>
-					<td><?php echo $order['product_name']; ?></td>
-					<td><?php echo $order['qty']; ?></td>
-					<td><img src="../admin_area/product_images/<?php echo $order['image'];?>" width="50" height="50"></td>
-					<td><?php echo $order['order_date']; ?></td>
-					<td><?php echo $order['customer']; ?></td>
-					<td><?php echo $order['Status']; ?></td>
-					<td><a href="d.php?d_pro=<?php $order['receipt_id'];?>"><img src="done.png" width="50" height="50"></a></td>
-					
+                    	<td><?php echo $order['receipt_id']; ?></td>
+                        <td><?php echo $order['datepurchase']; ?></td>
+                        <td><?php echo $order['Status']; ?></td>
+						<td>
+							<a href="index.php?d_pro=<?php echo $order['receipt_id'];?>">
+								<img src="done.png" width="50" height="50">
+							</a>
+						</td>
                     </tr>
                 <?php } ?>
             <?php } ?>

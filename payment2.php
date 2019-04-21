@@ -3,66 +3,38 @@
 
 
 <?php 
-		include("includes/db.php");
+	include("includes/db.php");
 
-		$total = 0;
+	$total = 0;
+	
+	global $con; 
+	
+	$ip = getIp(); 
+	$id = "";
+	if (isset($_SESSION['customer_email'])) {
+		$id = $_SESSION['customer_id'];
+	}
+	$sel_price = "SELECT * FROM cart WHERE customer_id='$id' AND ip='$ip' ";
+	
+	$run_price = mysqli_query($con, $sel_price); 
+	
+	while ($p_price=mysqli_fetch_array($run_price)) {
+		$pro_id = $p_price['p_id']; 
+		$pro_price = "SELECT * FROM products WHERE prod_id='$pro_id'";
+		$run_pro_price = mysqli_query($con,$pro_price); 
 		
-		global $con; 
-		
-		$ip = getIp(); 
-		$id = "";
-		if (isset($_SESSION['customer_email'])) {
-			$id = $_SESSION['user_id'];
-		}
-		$sel_price = "SELECT * FROM cart WHERE customer_id='$id' OR ip='$ip' ";
-		
-		$run_price = mysqli_query($con, $sel_price); 
-		
-		while($p_price=mysqli_fetch_array($run_price)){
-			
-			$pro_id = $p_price['p_id']; 
-			
-			$pro_price = "SELECT * FROM products WHERE prod_id='$pro_id'";
-			
-			$run_pro_price = mysqli_query($con,$pro_price); 
-			
-			while ($pp_price = mysqli_fetch_array($run_pro_price)){
-			
+		while ($pp_price = mysqli_fetch_array($run_pro_price)) {
 			$product_price = array($pp_price['prod_price']);
-			
 			$product_name = $pp_price['prod_title'];
-			
 			$values = array_sum($product_price);
-			
 			$total +=$values;
-			
-}
-}
-
-			// getting Quantity of the product 
-			$get_qty = "SELECT * FROM cart WHERE p_id='$pro_id' ";
-			
-			$run_qty = mysqli_query($con, $get_qty); 
-			
-			$row_qty = mysqli_fetch_array($run_qty); 
-			
-			$qty = $row_qty['qty'];
-			
-			if($qty==0){
-			
-			$qty=1;
-			}
-			else {
-			
-			$qty=$qty;
-			
-			
-			
-			}
+		
+		}
+	}
 
 ?>
 
-<h2 align="center" style="padding:2px;">Cash on Delivery</h2>
+<h2 align="center"  style="padding:2px; color:white">Cash on Delivery</h2>
 
  <form action="paymentcod.php" method="post">
 
@@ -72,10 +44,9 @@
   <input type="hidden" name="cmd" value="_xclick">
 
   <!-- Specify details about the item that buyers will purchase. -->
-  <input type="hidden" name="item_name" value="<?php echo $product_name; ?>">
+<input type="hidden" name="item_name" value="<?php echo $product_name; ?>">
 <input type="hidden" name="item_number" value="<?php echo $pro_id; ?>">
 <input type="hidden" name="amount" value="<?php echo $total; ?>">
-<input type="hidden" name="quantity" value="<?php echo $qty; ?>">
 <input type="hidden" name="currency_code" value="PHP">
 
 

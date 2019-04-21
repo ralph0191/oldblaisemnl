@@ -16,7 +16,7 @@
 	<?php 
 	include("includes/db.php");
 	
-	$get_c = "select * from customers";
+	$get_c = "SELECT * FROM customers";
 	
 	$run_c = mysqli_query($con, $get_c); 
 	

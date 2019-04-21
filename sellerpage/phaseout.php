@@ -1,11 +1,20 @@
 <?php
- 
-$sql = "SELECT * FROM  phaseout";
-$result = $con->query($sql);
-$order_users = [];
-if ($result->num_rows > 0) {
-    $order_users = $result->fetch_all(MYSQLI_ASSOC);
-}
+    $companyCode = $_SESSION['company_code'];
+    $sql = "SELECT
+                phaseout.phaseoutID AS PhaseID, products.prod_title AS Title, products.prod_image as image, categories.cat_title as Category, 
+                phaseout.deletedin as DateDeleted, phaseout.Deletedby as Nameby
+            FROM  
+                phaseout
+            LEFT JOIN 
+                products ON products.prod_id = phaseout.ProductID AND products.prod_company = '$companyCode'
+            LEFT JOIN
+                categories ON categories.cat_id = prod_cat
+            WHERE products.prod_status = 0";
+    $result = $con->query($sql);
+    $order_products = [];
+    if ($result->num_rows > 0) {
+        $order_products = $result->fetch_all(MYSQLI_ASSOC);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,48 +30,23 @@ if ($result->num_rows > 0) {
     <div class="container mt-5">
         <table id="usetTable" class="table" style="text-align: center; align: center;">
         <thead>
-            <th>Phaseout ID</th>
+            <th>ACTION</th>
             <th>Product Name</th>
             <th>Product Image</th>
-						<th>Category</th>
+            <th>Category</th>
             <th>Date Removed</th>
-						<th>Removed By</th>
+            <th>Removed By</th>
 	    </thead>
 	    <tbody>
-            <?php if(!empty($order_users)) { ?>
-                <?php foreach($order_users as $order) { ?>
+            <?php if(!empty($order_products)) { ?>
+                <?php foreach($order_products as $order) { ?>
                     <tr>
-                        <td><?php echo $order['phaseoutID']; ?></td>
-                        <td><?php echo $order['prod_title']; ?></td>
-                        <td>
-													<img src="../admin_area/product_images/<?php echo $order['prod_image']; ?>" height="50px" width="50px">
-												</td>
-                        <td>
-													<?php 
-														if ($order['prod_cat'] == "1") {
-															$category_string = "K-Beauty";
-														}
-														else if ($order['prod_cat'] == "2") {
-															$category_string = "Food";
-														}
-														else if ($order['prod_cat'] == "3") {
-															$category_string = "Furniture";
-														}
-														else if ($order['prod_cat'] == "4") {
-															$category_string = "Makeup";
-														}
-														else if ($order['prod_cat'] == "5") {
-															$category_string = "Skincare";
-														}
-														else {
-															$category_string = "ETC";
-														}
-
-														echo $category_string;
-													?>
-												</td>
-                        <td><?php echo $order['deletedin'] ?></td>
-												<td><?php echo $order['deletedby']; ?></td>
+                        <td><?php echo $order['PhaseID']; ?></td>
+                        <td><?php echo $order['Title']; ?></td>
+                        <td><img src="../admin_area/product_images/<?php echo $order['image']; ?>" height="50px" width="50px"></td>
+                        <td><?php echo $order['Category']; ?></td>
+                        <td><?php echo $order['DateDeleted'] ?></td>
+                        <td><?php echo $order['Nameby']; ?></td>
                     </tr>
                 <?php } ?>
             <?php } ?>

@@ -2,16 +2,16 @@
 include("includes/db.php"); 
 session_start(); 
 
-if(!isset($_SESSION['user_email'])){
+if(!isset($_SESSION['seller_email'])){
 	
 	echo "<script>window.open('login.php?not_admin=You are not an Admin!','_self')</script>";
 }
 else {
-	$email = $_SESSION['user_email'];
+	$email = $_SESSION['seller_email'];
 
-if(isset($_GET['delete_pro'])){
+if(isset($_GET['del_pro'])){
 	
-	$delete_id = $_GET['delete_pro'];
+	$delete_id = $_GET['del_pro'];
 
 ?>
 
@@ -51,12 +51,9 @@ document.getElementById('ct').innerHTML = x1;
 
 tt=display_c();
 }
-
 </script>
-
 	<head>
-		<title>ADMIN AREA</title> 
-		
+		<title>SELLER PAGE</title> 
 	<link rel="stylesheet" href="styles/style.css" media="all" /> 
 	</head>
 
@@ -67,7 +64,7 @@ tt=display_c();
 
 <div class="header_wrapper">
 		
-		<h1>ADMIN AREA</h1>
+		<h1>SELLER AREA</h1>
 		
 		</div>
 
@@ -80,8 +77,6 @@ tt=display_c();
 		<h3>The current time is: </h3><br>
 		<span id='ct'></span>
 		<br><hr></center>
-		<h2 style="text-align:center;">Manage Content</h2>
-		
 		</div>
 		
 		<div id="left">
@@ -90,8 +85,8 @@ tt=display_c();
 		<form class="form-signin" method="post"><br><br>
 		<h2 class="form-signin-heading">Authentication Required</h2><br>
         <input type="password" class="form-control" name="password" placeholder="Enter password" />
-        <button class="btn btn-primary btn-block btn-large" type="submit" name="confirm">Confirm</button>
-		<input type="submit" name="cancel" value="Cancel" />
+				<button class="btn btn-primary btn-block" type="submit" name="confirm">Confirm</button>
+        <button class="btn btn-gray btn-block" type="submit" name="cancel">Cancel</button>
     </form>
 		
 		</div>
@@ -110,7 +105,7 @@ tt=display_c();
 	$pass = mysqli_real_escape_string($con, $_POST['password']);
 	
 	
-	$sel_user = "select * from staff where staff_email='$email' AND staff_pass='$pass'";
+	$sel_user = "SELECT * FROM staff WHERE staff_email='$email' AND staff_pass='$pass'";
 	
 	$run_user = mysqli_query($con, $sel_user); 
 	
@@ -122,20 +117,14 @@ tt=display_c();
 	$query2 = "INSERT into deletelogs (deletedby,deletedin,phaseoutID) values('".$_SESSION['user_email']."','$date', '$delete_id')";
 		$result2 = mysqli_query($con, $query2) or die(mysqli_error($con));
 	
-	$insert = "insert into phaseout (phaseoutID,prod_title,prod_cat,prod_image,deletedin,deletedby) select prod_id,prod_title,prod_cat,prod_image,'$date','".$_SESSION['user_email']."' from products where prod_id ='$delete_id' ";
-    $result = mysqli_query($con, $insert);
+	$updateStatus = "UPDATE products SET prod_status=0 
+									WHERE prod_id='$delete_id'";
+	$runUpdate = mysqli_query($con, $updateStatus);
+	$insert = "INSERT INTO phaseout (ProductID,deletedby)
+							 VALUES ($delete_id, '$email') ";
+	$result = mysqli_query($con, $insert);
 	
-	
-	
-	
-	
-	$delete_pro = "delete from products where prod_id='$delete_id'"; 
-	$run_delete = mysqli_query($con, $delete_pro); 
-
-	if($run_delete){
-		
-	
-	
+	if ($result) {
 	echo "<script>alert('A product has been deleted!')</script>";
 	echo "<script>window.open('index.php?view_products','_self')</script>";
 }

@@ -2,7 +2,7 @@
     <div class="login_details">
         <?php 
             if(isset($_SESSION['customer_email'])){
-                echo "<b>Welcome: </b>" . $_SESSION['username'] ;
+                echo "<b>Welcome: </b>" . $_SESSION['customer_name'] ;
                 echo "<span class='my_account'><a href='my_account.php'> My Account </a></span>";
             }
             else {

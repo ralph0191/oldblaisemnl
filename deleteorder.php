@@ -48,7 +48,6 @@ if (isset($_GET['orderNo'])){
                 $customerContact = "";
                 $customerAddress = "";
                 $customerPurchase = "";
-                
                 $selectCustomer = "SELECT customers.customer_name AS CName, customers.customer_address AS Address,
                 customers.customer_contact AS Contact, DATE(order_receipt.datepurchase) AS BuyDate, order_receipt.Status AS stats         
                 FROM 
@@ -69,17 +68,10 @@ if (isset($_GET['orderNo'])){
                 }
                 ?>
 				<div class="upper_content">
-                    <div style="float:left; margin:20px;">
-                        <a class="btn btn-primary" href="my_account.php?my_orders">Back</a>
-                    </div>
-                    
-                        
-                    <br/>
-                    <br/>
-                    <br/>
-                    
-					<div class="main_content">
+					<div class="content_up">
                         <h2>Order Details!</h2><br>
+					</div>
+					<div class="main_content">
 						<div class="row">
                             <div class="col-md-6">
                                 <h4>Customer Information</h4>
@@ -166,18 +158,24 @@ if (isset($_GET['orderNo'])){
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h5>Total Amount: </h5>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <h5> <?php echo $totalPay; ?></h5>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5>Total Amount: </h5>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5> <?php echo $totalPay; ?></h5>
                                     </div>
                                 </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="row-btn" style="float: right;">
+                                <a href="" onclick="window.location.href='my_account.php?my_orders'"class="btn btn-secondary">Back</a>
+                                <a href="" class="btn btn-danger">Delete Order</a>
+                            </div>
                         </div>
 					</div>
-			
 				</div>
 			</div>	
 			
