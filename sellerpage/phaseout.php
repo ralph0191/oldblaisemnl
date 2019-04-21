@@ -28,7 +28,7 @@
 </head>
 <body>
     <div class="container mt-5">
-        <table id="usetTable" class="table">
+        <table id="usetTable" class="table" style="text-align: center; align: center;">
         <thead>
             <th>ACTION</th>
             <th>Product Name</th>

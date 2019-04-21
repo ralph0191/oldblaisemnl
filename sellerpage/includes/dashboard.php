@@ -242,5 +242,6 @@
 <script>
 $(document).ready(function() {
 	$('#usetTable').DataTable();
+    $('#usetTable2').DataTable();
 } );
 </script>
