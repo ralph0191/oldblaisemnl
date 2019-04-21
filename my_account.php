@@ -55,9 +55,9 @@ include ("functions/functions.php");
 				$c_name = $row_img['customer_name'];
 				
 				if ($c_image == NULL){
-					echo "<p style='text-align:center;'><img src='customer/customer_images/none.png' width='150' height='150'/></p>";
+					echo "<p style='text-align:center;'><img src='customer/customer_images/brad.jpg' alt='customer/customer_images/none.png' onerror='this.onerror=null; this.src='none.png';' width='150' height='150'/></p>";
 				}else{
-					echo "<p style='text-align:center;'><img src='customer/customer_images/$c_image' width='150' height='150'/></p>";
+					echo "<p style='text-align:center;'><img src='customer/customer_images/$c_image' alt='customer/customer_images/none.png' onerror='this.onerror=null; this.src='none.png';'' width='150' height='150'/></p>";
 				}
 				?>
 				
@@ -109,6 +109,7 @@ include ("functions/functions.php");
 					<h3>Contact Us</h3>					
 				</div>
 				<div id="get-in-touch">
+					<<div id="get-in-touch">
 					<div class="git_left">
 						<p>
 							Address: BF HOMES<br>
@@ -116,15 +117,15 @@ include ("functions/functions.php");
 						</p>
 					</div>
 					<div class="git right">
-						<h3>How's our website? Add your suggestions!</h3>
-						<ul id="contact-list">
-							<li>Name:<input type="text"></input></li>
-							<li>Email:<input type="text"></input></li>
-							<li id="message">Message:<textarea rows="3"  ></textarea></li>
-							<a href="#">Send</a>
-						</ul>
+						<body>
+						<img src="images/BOTTOM.jpg" alt="bottominfo" />
+					
+						
 					</div>
 				</div>
+				
+				
+			</div>
 			</div>
 		</div>		
 	</div>
@@ -135,7 +136,7 @@ include ("functions/functions.php");
 <!--Footer starts here!-->
 <div id="footer">
 	<div class="footer_wrapper">
-		&copy; 2018 Developed by <a href="#">Regine Lau & Ralph Suga</a>&nbsp;&nbsp;|&nbsp;&nbsp;Design by <a href="#" target="_blank" >Miguel Delos Santos</a> 
+		&copy; 2018 Developed by <a href="#">Regine Lau, Vince Villegas & Ralph Suga</a>&nbsp;&nbsp;|&nbsp;&nbsp;Design by <a href="#" target="_blank" >Danielle Roldan</a> 
 	</div>
 </div>
 <!--Footer ends here!-->
